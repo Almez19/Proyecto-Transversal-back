@@ -1,5 +1,7 @@
 package com.BackBasiFit.repository;
 
-public class MaquinasRepository {
-    
-}
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.BackBasiFit.entity.Maquina;
+
+public interface MaquinasRepository extends JpaRepository<Maquina, Long> {}

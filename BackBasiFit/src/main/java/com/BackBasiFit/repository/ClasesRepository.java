@@ -1,5 +1,7 @@
 package com.BackBasiFit.repository;
 
-public class ClasesRepository {
-    
-}
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.BackBasiFit.entity.Clase;
+
+public interface ClasesRepository extends JpaRepository<Clase, Long> {}
