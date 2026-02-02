@@ -27,15 +27,16 @@ create table noticias(
     urlImagen TEXT NOT NULL,
     fecha DATETIME NOT NULL,
 	gimnasio_id CHAR(36), -- UUID
-	constraint gimnasio_id foreign key (gimnasio) References Gimnasios(id)
+	constraint gimnasio_id foreign key (gimnasio_id) References Gimnasios(id)
 );
 
 create table salas(
 	id CHAR(36) PRIMARY KEY, -- UUID
     numero_sala int NOT NULL , -- FUNCIONA COMO NOMBRE
     gimnasio_id CHAR(36), -- UUID
-	UNIQUE (numero_sala, gimnasio_id),
-	constraint gimnasio_id foreign key (gimnasio_id) References Gimnasios(id)
+	constraint gimnasio_id_salas foreign key (gimnasio_id) References Gimnasios(id),
+	UNIQUE (numero_sala, gimnasio_id_salas)
+	
 );
 
 create table clases(
@@ -45,9 +46,23 @@ create table clases(
 	hora_final timestamp,
     fecha date,
     sala_id CHAR(36), -- UUID
-    constraint sala_id foreign key (sala_id) References salas(id),
-    id_usuarios CHAR(36), -- UUID
-    constraint id_usuarios foreign key (id_usuarios) References usuarios(id)
+    constraint sala_id_c foreign key (sala_id) References salas(id),
+    id_usuarios CHAR(36), -- UUID -- ID DEL USUARIO/ENTRENADOR QUE LO CREA
+    constraint id_usuarios_r foreign key (id_usuarios) References usuarios(id),
+    
+    CONSTRAINT chk_horas CHECK (hora_inicio < hora_final)
+    
+);
+
+create table reservas(
+	id CHAR(36) PRIMARY KEY, -- UUID
+    id_usuarios CHAR(36), -- UUID,
+    hora_inicio timestamp,
+	hora_final timestamp,
+    fecha date,
+    clase_id CHAR(36), -- UUID
+    constraint sala_id_r foreign key (sala_id) References salas(id),
+    constraint id_usuarios_r foreign key (id_usuarios) References usuarios(id)
 );
 
 
