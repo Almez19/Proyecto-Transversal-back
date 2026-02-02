@@ -2,6 +2,6 @@ package com.BackBasiFit.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.BackBasiFit.entity.Gimnasio;
+import com.BackBasiFit.entity.Gimnasios;
 
-public interface GimnasiosRepository extends JpaRepository<Gimnasio, Long> {}
+public interface GimnasiosRepository extends JpaRepository<Gimnasios, String> {}

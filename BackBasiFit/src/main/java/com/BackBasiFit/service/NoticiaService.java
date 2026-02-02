@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.BackBasiFit.entity.Noticia;
+import com.BackBasiFit.entity.Noticias;
 import com.BackBasiFit.repository.NoticiasRepository;
 
 @Service
@@ -15,12 +15,12 @@ public class NoticiaService {
         this.repo = repo;
     }
 
-    public List<Noticia> findAll() { return repo.findAll(); }
+    public List<Noticias> findAll() { return repo.findAll(); }
 
-    public Noticia findById(Long id) {
+    public Noticias findById(String id) {
         return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Noticia no encontrada"));
     }
 
-    public Noticia save(Noticia n) { return repo.save(n); }
-    public void delete(Long id) { repo.deleteById(id); }
+    public Noticias save(Noticias n) { return repo.save(n); }
+    public void delete(String id) { repo.deleteById(id); }
 }

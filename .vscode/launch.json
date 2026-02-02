@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BackBasiFitApplication<BackBasiFit>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.BackBasiFit.BackBasiFitApplication",
+            "projectName": "BackBasiFit",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
