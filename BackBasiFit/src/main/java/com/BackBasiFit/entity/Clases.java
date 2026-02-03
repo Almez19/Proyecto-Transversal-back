@@ -31,10 +31,13 @@ public class Clases {
     String fecha;
 
     @Column(nullable= false)
-    String sala_id;
+    String salaId;
 
     @Column(nullable= false)
     String id_usuarios;
+
+    @Column(name = "id_usuarios_c", length = 36)
+    String entrenadorId;
 
     public String getId() {
         return id;
@@ -76,12 +79,12 @@ public class Clases {
         this.fecha = fecha;
     }
 
-    public String getSala_id() {
-        return sala_id;
+    public String getSalaId() {
+        return salaId;
     }
 
-    public void setSala_id(String sala_id) {
-        this.sala_id = sala_id;
+    public void setSalaId(String salaId) {
+        this.salaId = salaId;
     }
 
     public String getId_usuarios() {
@@ -92,7 +95,13 @@ public class Clases {
         this.id_usuarios = id_usuarios;
     }
     
+    public String getEntrenadorId() { 
+        return entrenadorId; 
+    }
 
+    public void setEntrenadorId(String entrenadorId) { 
+        this.entrenadorId = entrenadorId; 
+    }
     
 
 }

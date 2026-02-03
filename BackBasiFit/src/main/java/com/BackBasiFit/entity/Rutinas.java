@@ -19,7 +19,7 @@ public class Rutinas {
     String nombre;
 
     @Column(nullable= false)
-    String usuario;
+    String clienteId;
 
     public String getId() {
         return id;
@@ -37,12 +37,12 @@ public class Rutinas {
         this.nombre = nombre;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getClienteId() {
+        return clienteId;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setClienteId(String clienteId) {
+        this.clienteId = clienteId;
     }
 
 }

@@ -17,10 +17,10 @@ public class Reservas {
     private String id = UUID.randomUUID().toString();
 
     @Column(nullable= false)
-    String usuarios;
+    String clienteId;
 
     @Column(nullable= false)
-    String clase;
+    String claseId;
 
     @Column(nullable= false)
     boolean estado;
@@ -33,20 +33,20 @@ public class Reservas {
         this.id = id;
     }
 
-    public String getUsuarios() {
-        return usuarios;
+    public String getClienteId() {
+        return clienteId;
     }
 
-    public void setUsuarios(String usuarios) {
-        this.usuarios = usuarios;
+    public void setClienteId(String clienteId) {
+        this.clienteId = clienteId;
     }
 
-    public String getClase() {
-        return clase;
+    public String getClaseId() {
+        return claseId;
     }
 
-    public void setClase(String clase) {
-        this.clase = clase;
+    public void setClaseId(String claseId) {
+        this.claseId = claseId;
     }
 
     public boolean isEstado() {

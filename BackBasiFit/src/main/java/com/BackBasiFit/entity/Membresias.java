@@ -71,6 +71,9 @@ public class Membresias {
     @Column(nullable= false)
     Number precio;
 
+    @Column(nullable= false) 
+    String clienteId;
+
     @Column(nullable= false)
     String usuario;
 
@@ -82,20 +85,24 @@ public class Membresias {
         this.id = id;
     }
 
-    public String getFecha_inicio() {
+    public String getFechaInicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(String fecha_inicio) {
+    public void setFechaInicio(String fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public String getFecha_final() {
+    public String getFechaFinal() {
         return fecha_final;
     }
 
-    public void setFecha_final(String fecha_final) {
+    public void setFechaFinal(String fecha_final) {
         this.fecha_final = fecha_final;
+    }
+
+    public boolean getEstado() {
+        return estado;
     }
 
     public boolean isEstado() {
@@ -128,6 +135,14 @@ public class Membresias {
 
     public void setPrecio(Number precio) {
         this.precio = precio;
+    }
+
+    public String getClienteId() { 
+        return clienteId; 
+    }
+    
+    public void setClienteId(String clienteId) { 
+        this.clienteId = clienteId; 
     }
 
     public String getUsuario() {
