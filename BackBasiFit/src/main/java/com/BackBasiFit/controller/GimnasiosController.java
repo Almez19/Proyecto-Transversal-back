@@ -36,7 +36,6 @@ public class GimnasiosController {
     private final SalasService salasService;
     private final MaquinasService maquinasService;
     private final NoticiaService noticiaService;
-    private final ClasesService clasesService;
 
     public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService,
                               NoticiaService noticiaService, ClasesService clasesService) {
@@ -44,7 +43,6 @@ public class GimnasiosController {
         this.salasService = salasService;
         this.maquinasService = maquinasService;
         this.noticiaService = noticiaService;
-        this.clasesService = clasesService;
     }
 
     // GET todos los gimnasios
