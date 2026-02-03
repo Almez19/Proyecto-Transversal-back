@@ -2,14 +2,27 @@ drop database if exists pr_transversal;
 Create database pr_transversal;
 use pr_transversal;
 
-create table usuarios (
-  id CHAR (36) PRIMARY KEY, -- UUID
-  nombre varchar(50) NOT NULL,
-  apellido1 varchar(50) NOT NULL,
-  apellido2 varchar(50) NOT NULL,
-  DNI_NIE varchar (9) NOT NULL UNIQUE,
-  ROL enum('admin','empleado','entrenador') NOT NULL,
-  estado boolean NOT NULL DEFAULT TRUE
+
+create table Gimnasios(
+	id CHAR(36) PRIMARY KEY, -- UUID
+    ubicacion varchar (150) NOT NULL UNIQUE,
+    ciudad varchar (30) NOT NULL,
+	nombre varchar(50) NOT NULL,
+	estado boolean NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE usuarios (
+  id CHAR(36) PRIMARY KEY, -- UUID
+  nombre VARCHAR(50) NOT NULL,
+  apellido1 VARCHAR(50) NOT NULL,
+  apellido2 VARCHAR(50) NOT NULL,
+  DNI_NIE VARCHAR(9) NOT NULL UNIQUE,
+  contrasena VARCHAR(255) NOT NULL,
+  ROL ENUM('admin','empleado','entrenador') NOT NULL,
+  gimnasio_id CHAR(36) NOT NULL, 
+  estado BOOLEAN NOT NULL DEFAULT TRUE,
+  CONSTRAINT usuario_gimnasio_fk
+    FOREIGN KEY (gimnasio_id) REFERENCES Gimnasios(id)
 );
 
 create table clientes (
@@ -18,15 +31,8 @@ create table clientes (
   apellido1 varchar(50) NOT NULL,
   apellido2 varchar(50) NOT NULL,
   DNI_NIE varchar (9) NOT NULL UNIQUE,
+  contrasena VARCHAR(255) NOT NULL,
   estado boolean NOT NULL DEFAULT TRUE
-);
-
-create table Gimnasios(
-	id CHAR(36) PRIMARY KEY, -- UUID
-    ubicacion varchar (150) NOT NULL UNIQUE,
-    ciudad varchar (30) NOT NULL,
-	nombre varchar(50) NOT NULL,
-	estado boolean NOT NULL DEFAULT TRUE
 );
 
 create table noticias(
@@ -112,7 +118,6 @@ create table ejercicios (
     constraint maquina_id_e foreign key (maquina_id_e) References maquinas(id)
 
 );
-
 
 
 
