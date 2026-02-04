@@ -1,5 +1,5 @@
 package com.BackBasiFit.enums;
 
-public enum  Calidad {
-    CONFORT, PREMIUM, ULTIMATE
+public enum Calidad {
+    comfort, premium, ultimate
 }

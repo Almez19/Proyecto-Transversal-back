@@ -29,17 +29,21 @@ public class NoticiasController {
     @GetMapping
     public List<Noticias> getAll(@RequestParam(required = false) String gimnasioId) {
         if (gimnasioId != null) return noticiaService.findByGimnasioId(gimnasioId);
+
         return noticiaService.findAll();
     }
 
     // GET por id 
     @GetMapping("/{id}")
-    public Noticias getById(@PathVariable String id) { return noticiaService.findById(id); }
+    public Noticias getById(@PathVariable String id) { 
+        
+        return noticiaService.findById(id); 
+    }
 
     // POST crear noticias
     @PostMapping
-    public ResponseEntity<Noticias> create(@RequestBody Noticias n) {
-        Noticias saved = noticiaService.save(n);
+    public ResponseEntity<Noticias> create(@RequestBody Noticias noticia) {
+        Noticias saved = noticiaService.save(noticia);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -49,6 +53,7 @@ public class NoticiasController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         noticiaService.delete(id);
+        
         return ResponseEntity.noContent().build();
     }
 }

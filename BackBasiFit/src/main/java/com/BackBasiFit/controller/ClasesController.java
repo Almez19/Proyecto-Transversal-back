@@ -29,7 +29,10 @@ public class ClasesController {
 
     // GET clases
     @GetMapping("/{id}")
-    public Clases getById(@PathVariable String id) { return clasesService.findById(id); }
+    public Clases getById(@PathVariable String id) { 
+        
+        return clasesService.findById(id); 
+    }
 
     // POST Reservar clase
     @PostMapping("/{claseId}/reservas")
@@ -45,6 +48,7 @@ public class ClasesController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         clasesService.delete(id);
+        
         return ResponseEntity.noContent().build();
     }
 }

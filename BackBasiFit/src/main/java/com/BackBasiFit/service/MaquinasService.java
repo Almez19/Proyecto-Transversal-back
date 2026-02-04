@@ -7,29 +7,29 @@ import com.BackBasiFit.repository.MaquinasRepository;
 
 @Service
 public class MaquinasService {
-    private final MaquinasRepository repo;
+    private final MaquinasRepository maquinasRepository;
 
-    public MaquinasService(MaquinasRepository repo) { 
-        this.repo = repo; 
+    public MaquinasService(MaquinasRepository maquinasRepository) { 
+        this.maquinasRepository = maquinasRepository; 
     }
 
     public List<Maquinas> findAll() { 
-        return repo.findAll(); 
+        return maquinasRepository.findAll(); 
     }
 
     public Maquinas findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("No se a podido encontrar esta maquina"));
+        return maquinasRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se a podido encontrar esta maquina"));
     }
 
     public List<Maquinas> findByGimnasio(String gimnasioId) { 
-        return repo.findByGimnasiosId(gimnasioId); 
+        return maquinasRepository.findByGimnasioId(gimnasioId); 
     }
 
-    public Maquinas save(Maquinas m) { 
-        return repo.save(m); 
+    public Maquinas save(Maquinas maquina) { 
+        return maquinasRepository.save(maquina); 
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        maquinasRepository.deleteById(id); 
     }
 }

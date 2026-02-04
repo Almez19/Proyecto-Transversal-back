@@ -8,66 +8,62 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "Gimnasios")
+@Table(name = "gimnasios")
 public class Gimnasios {
-    
-    @Id
 
+    @Id
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
-    @Column(nullable= false, length= 150)
-    String ubicacion;
+    @Column(nullable = false, unique = true, length = 150)
+    private String ubicacion;
 
-    @Column(nullable= false, length= 30)
-    String ciudad;
+    @Column(nullable = false, length = 30)
+    private String ciudad;
 
-    @Column(nullable= false, length= 30)
-    String nombre;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    @Column(nullable= false)
-    boolean estado;
+    @Column(nullable = false)
+    private Boolean estado = true;
 
-    public String getId() {
-        return id;
+    public String getId() { 
+        return id; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public String getUbicacion() { 
+        return ubicacion; 
     }
 
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setUbicacion(String ubicacion) { 
+        this.ubicacion = ubicacion; 
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getCiudad() { 
+        return ciudad; 
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public void setCiudad(String ciudad) { 
+        this.ciudad = ciudad; 
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre() { 
+        return nombre; 
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
 
-    public boolean isEstado() {
-        return estado;
+    public Boolean getEstado() { 
+        return estado; 
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public void setEstado(Boolean estado) { 
+        this.estado = estado; 
     }
-
-    
-
-
 }

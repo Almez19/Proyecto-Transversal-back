@@ -1,156 +1,114 @@
 package com.BackBasiFit.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
+import com.BackBasiFit.enums.Calidad;
+import com.BackBasiFit.enums.Duracion;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "membresias")
+@Table(name = "membresias")
 public class Membresias {
+
     @Id
-    
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable= false)
-    String fecha_inicio;
+    @Column(name = "fecha_inicio", nullable = false)
+    private LocalDate fechaInicio;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable= false)
-    String fecha_final;
+    @Column(name = "fecha_final", nullable = false)
+    private LocalDate fechaFinal;
 
-    @Column(nullable= false)
-    boolean estado;
+    @Column(nullable = false)
+    private Boolean estado;
 
-    @Column(nullable= false)
-    Duracion duracion;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Duracion duracion;
 
-    public enum Duracion{
-        diario("diario"),
-        semanal("semanal"),
-        mensual("mensual"),
-        trimestral("trimestral"),
-        anual("anual");
-    
-        private final String duracion;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Calidad calidad;
 
-        Duracion(String duracion){
-            this.duracion = duracion;
-        }
+    @Column(nullable = false, precision = 7, scale = 2)
+    private BigDecimal precio;
 
-        public String getDuracion(){
-            return duracion;
-        }
+    @Column(name = "cliente_id", nullable = false, length = 36)
+    private String clienteId;
+
+    public String getId() { 
+        return id; 
     }
 
-    @Column(nullable= false)
-    Calidad calidad;
-
-
-    public enum Calidad{
-        comfort("comfort"),
-        premium("premium"),
-        ultimate("ultimate");
-    
-        private final String calidad;
-
-        Calidad(String calidad){
-            this.calidad = calidad;
-        }
-
-        public String getCalidad(){
-            return calidad;
-        }
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    @Column(nullable= false)
-    Number precio;
-
-    @Column(nullable= false) 
-    String clienteId;
-
-    @Column(nullable= false)
-    String usuario;
-
-    public String getId() {
-        return id;
+    public LocalDate getFechaInicio() { 
+        return fechaInicio; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setFechaInicio(LocalDate fechaInicio) { 
+        this.fechaInicio = fechaInicio; 
     }
 
-    public String getFechaInicio() {
-        return fecha_inicio;
+    public LocalDate getFechaFinal() { 
+        return fechaFinal; 
     }
 
-    public void setFechaInicio(String fecha_inicio) {
-        this.fecha_inicio = fecha_inicio;
+    public void setFechaFinal(LocalDate fechaFinal) { 
+        this.fechaFinal = fechaFinal; 
     }
 
-    public String getFechaFinal() {
-        return fecha_final;
+    public Boolean getEstado() { 
+        return estado; 
     }
 
-    public void setFechaFinal(String fecha_final) {
-        this.fecha_final = fecha_final;
+    public void setEstado(Boolean estado) { 
+        this.estado = estado; 
     }
 
-    public boolean getEstado() {
-        return estado;
+    public Duracion getDuracion() { 
+        return duracion; 
     }
 
-    public boolean isEstado() {
-        return estado;
+    public void setDuracion(Duracion duracion) { 
+        this.duracion = duracion; 
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public Calidad getCalidad() { 
+        return calidad; 
     }
 
-    public Duracion getDuracion() {
-        return duracion;
+    public void setCalidad(Calidad calidad) { 
+        this.calidad = calidad; 
     }
 
-    public void setDuracion(Duracion duracion) {
-        this.duracion = duracion;
+    public BigDecimal getPrecio() { 
+        return precio; 
     }
 
-    public Calidad getCalidad() {
-        return calidad;
-    }
-
-    public void setCalidad(Calidad calidad) {
-        this.calidad = calidad;
-    }
-
-    public Number getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(Number precio) {
-        this.precio = precio;
+    public void setPrecio(BigDecimal precio) { 
+        this.precio = precio; 
     }
 
     public String getClienteId() { 
         return clienteId; 
     }
-    
+
     public void setClienteId(String clienteId) { 
         this.clienteId = clienteId; 
     }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
 }

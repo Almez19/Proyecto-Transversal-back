@@ -29,26 +29,31 @@ public class ReservasController {
 
     // GET todas las reservas, de un cliente concreto, reservas activas
     @GetMapping
-    public List<Reservas> getAll(@RequestParam(required = false) String clienteId,
-                                 @RequestParam(required = false) String claseId,
-                                 @RequestParam(required = false, defaultValue = "false") boolean soloActivas) {
+    public List<Reservas> getAll(@RequestParam(required = false) String clienteId, @RequestParam(required = false) String claseId, @RequestParam(required = false, defaultValue = "false") boolean soloActivas) {
         if (clienteId != null) {
+
             return reservasService.findByCliente(clienteId);
         }
+
         if (claseId != null && soloActivas) {
+
             return reservasService.findActivasByClase(claseId);
         }
+
         return reservasService.findAll();
     }
 
     // GET por id
     @GetMapping("/{id}")
-    public Reservas getById(@PathVariable String id) { return reservasService.findById(id); }
+    public Reservas getById(@PathVariable String id) { 
+        
+        return reservasService.findById(id); 
+    }
 
     // POST crear reservas
     @PostMapping
-    public ResponseEntity<Reservas> create(@RequestBody Reservas r) {
-        Reservas saved = reservasService.save(r);
+    public ResponseEntity<Reservas> create(@RequestBody Reservas reserva) {
+        Reservas saved = reservasService.save(reserva);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -58,6 +63,7 @@ public class ReservasController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         reservasService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
@@ -66,9 +72,11 @@ public class ReservasController {
     public ResponseEntity<Reservas> reservar(@RequestBody Map<String, String> body) {
         String clienteId = body.get("clienteId");
         String claseId = body.get("claseId");
+
         if (clienteId == null || claseId == null) {
             throw new IllegalArgumentException("clienteId y claseId son obligatorios");
         }
+
         Reservas saved = reservasService.reservar(clienteId, claseId);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/reservas/{id}").buildAndExpand(saved.getId()).toUri();
         
@@ -78,6 +86,7 @@ public class ReservasController {
     // PUT cancelar reserva
     @PutMapping("/{id}/cancelar")
     public Reservas cancelar(@PathVariable String id) {
+        
         return reservasService.cancelar(id);
     }
 }

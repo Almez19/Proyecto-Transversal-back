@@ -33,19 +33,23 @@ public class RutinasController {
     @GetMapping
     public List<Rutinas> getAll(@RequestParam(required = false) String clienteId) {
         if (clienteId != null) return rutinasService.findByCliente(clienteId);
+
         return rutinasService.findAll();
     }
 
     // GET rutina por id
     @GetMapping("/{id}")
-    public Rutinas getById(@PathVariable String id) { return rutinasService.findById(id); }
+    public Rutinas getById(@PathVariable String id) { 
+        
+        return rutinasService.findById(id); 
+    }
 
     // POST crear rutina
     @PostMapping
-    public ResponseEntity<Rutinas> create(@RequestBody Rutinas r) {
-        Rutinas saved = rutinasService.save(r);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(saved.getId()).toUri();
+    public ResponseEntity<Rutinas> create(@RequestBody Rutinas rutina) {
+        Rutinas saved = rutinasService.save(rutina);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
+
         return ResponseEntity.created(location).body(saved);
     }
 
@@ -53,12 +57,14 @@ public class RutinasController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         rutinasService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
     // GET ejercicios por rutina
     @GetMapping("/{id}/ejercicios")
     public List<Ejercicios> ejerciciosDeRutina(@PathVariable String id) {
-        return ejerciciosService.findByRutina(id);
+        
+        return ejerciciosService.obtenerEjerciciosPorRutinaId(id);
     }
 }

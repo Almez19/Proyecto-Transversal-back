@@ -1,5 +1,6 @@
 package com.BackBasiFit.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,97 +12,85 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "clases")
+@Table(name = "clases")
 public class Clases {
+
     @Id
-    
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
-    @Column(nullable= false, length= 50)
-    String deporte;
+    @Column(nullable = false, length = 50)
+    private String deporte;
 
-    @Column(nullable= false)
-    LocalDateTime hora_inicio;
+    @Column(name = "hora_inicio", nullable = false)
+    private LocalDateTime horaInicio;
 
-    @Column(nullable= false)
-    LocalDateTime hora_fin;
+    @Column(name = "hora_final", nullable = false)
+    private LocalDateTime horaFinal;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable= false)
-    String fecha;
+    @Column(nullable = false)
+    private LocalDate fecha;
 
-    @Column(nullable= false)
-    String salaId;
+    @Column(name = "sala_id", nullable = false, length = 36)
+    private String salaId;
 
-    @Column(nullable= false)
-    String id_usuarios;
+    @Column(name = "id_usuarios_c", nullable = false, length = 36)
+    private String usuarioCreadorId;
 
-    @Column(name = "id_usuarios_c", length = 36)
-    String entrenadorId;
-
-    public String getId() {
+    public String getId() { 
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public String getDeporte() {
-        return deporte;
-    }
-
-    public void setDeporte(String deporte) {
-        this.deporte = deporte;
-    }
-
-    public LocalDateTime getHora_inicio() {
-        return hora_inicio;
-    }
-
-    public void setHora_inicio(LocalDateTime hora_inicio) {
-        this.hora_inicio = hora_inicio;
-    }
-
-    public LocalDateTime getHora_fin() {
-        return hora_fin;
-    }
-
-    public void setHora_fin(LocalDateTime hora_fin) {
-        this.hora_fin = hora_fin;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getSalaId() {
-        return salaId;
-    }
-
-    public void setSalaId(String salaId) {
-        this.salaId = salaId;
-    }
-
-    public String getId_usuarios() {
-        return id_usuarios;
-    }
-
-    public void setId_usuarios(String id_usuarios) {
-        this.id_usuarios = id_usuarios;
+    public String getDeporte() { 
+        return deporte; 
     }
     
-    public String getEntrenadorId() { 
-        return entrenadorId; 
+    public void setDeporte(String deporte) { 
+        this.deporte = deporte; 
     }
 
-    public void setEntrenadorId(String entrenadorId) { 
-        this.entrenadorId = entrenadorId; 
+    public LocalDateTime getHoraInicio() { 
+        return horaInicio; 
     }
-    
 
+    public void setHoraInicio(LocalDateTime horaInicio) { 
+        this.horaInicio = horaInicio; 
+    }
+
+    public LocalDateTime getHoraFinal() { 
+        return horaFinal; 
+    }
+
+    public void setHoraFinal(LocalDateTime horaFinal) { 
+        this.horaFinal = horaFinal; 
+    }
+
+    public LocalDate getFecha() { 
+        return fecha; 
+    }
+
+    public void setFecha(LocalDate fecha) { 
+        this.fecha = fecha; 
+    }
+
+    public String getSalaId() { 
+        return salaId; 
+    }
+
+    public void setSalaId(String salaId) { 
+        this.salaId = salaId; 
+    }
+
+    public String getUsuarioCreadorId() { 
+        return usuarioCreadorId; 
+    }
+
+    public void setUsuarioCreadorId(String usuarioCreadorId) { 
+        this.usuarioCreadorId = usuarioCreadorId; 
+    }
 }

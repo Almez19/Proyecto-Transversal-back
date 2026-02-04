@@ -26,16 +26,22 @@ public class UsuariosController {
 
     // GET todos los usurios
     @GetMapping
-    public List<Usuarios> getAll() { return usuariosService.findAll(); }
+    public List<Usuarios> getAll() { 
+        
+        return usuariosService.findAll(); 
+    }
 
     // GET usuario por id
     @GetMapping("/{id}")
-    public Usuarios getById(@PathVariable String id) { return usuariosService.findById(id); }
+    public Usuarios getById(@PathVariable String id) { 
+        
+        return usuariosService.findById(id); 
+    }
 
     // POST nueva usuarios
     @PostMapping
-    public ResponseEntity<Usuarios> create(@RequestBody Usuarios u) {
-        Usuarios saved = usuariosService.save(u);
+    public ResponseEntity<Usuarios> create(@RequestBody Usuarios usuario) {
+        Usuarios saved = usuariosService.save(usuario);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -45,6 +51,7 @@ public class UsuariosController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         usuariosService.delete(id);
+        
         return ResponseEntity.noContent().build();
     }
 }

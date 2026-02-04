@@ -1,8 +1,7 @@
 package com.BackBasiFit.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,73 +9,73 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "noticias")
+@Table(name = "noticias")
 public class Noticias {
-    
+
     @Id
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
-    @Column(nullable= false, length= 50)
-    String titulo;
+    @Column(nullable = false, length = 50)
+    private String titulo;
 
-    @Column(nullable= false)
-    String cuerpo;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String cuerpo;
 
-    @Column(nullable= false)
-    String urlInagen;
+    @Column(name = "urlImagen", nullable = false, columnDefinition = "TEXT")
+    private String urlImagen;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(nullable= false)
-    String fecha;
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 
-    @Column(nullable= false, length= 36)
-    String gimnasio;
+    @Column(name = "gimnasio_id", length = 36)
+    private String gimnasioId;
 
-    public String getId() {
-        return id;
+    public String getId() { 
+        return id; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTitulo() { 
+        return titulo; 
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitulo(String titulo) { 
+        this.titulo = titulo; 
     }
 
-    public String getCuerpo() {
-        return cuerpo;
+    public String getCuerpo() { 
+        return cuerpo; 
     }
 
-    public void setCuerpo(String cuerpo) {
-        this.cuerpo = cuerpo;
+    public void setCuerpo(String cuerpo) { 
+        this.cuerpo = cuerpo; 
     }
 
-    public String getUrlInagen() {
-        return urlInagen;
+    public String getUrlImagen() { 
+        return urlImagen; 
     }
 
-    public void setUrlInagen(String urlInagen) {
-        this.urlInagen = urlInagen;
+    public void setUrlImagen(String urlImagen) { 
+        this.urlImagen = urlImagen; 
     }
 
-    public String getFecha() {
-        return fecha;
+    public LocalDateTime getFecha() { 
+        return fecha; 
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFecha(LocalDateTime fecha) { 
+        this.fecha = fecha; 
     }
 
-    public String getGimnasio() {
-        return gimnasio;
+    public String getGimnasioId() { 
+        return gimnasioId; 
     }
 
-    public void setGimnasio(String gimnasio) {
-        this.gimnasio = gimnasio;
+    public void setGimnasioId(String gimnasioId) { 
+        this.gimnasioId = gimnasioId; 
     }
 }

@@ -8,42 +8,51 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "ejercicios")
+@Table(name = "ejercicios")
 public class Ejercicios {
+
     @Id
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
-    
-    @Column(nullable= false)
-    String nombre;
 
-    @Column(nullable= false)
-    String rutina;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    public String getId() {
-        return id;
+    @Column(name = "rutina_id_e", nullable = false, length = 36)
+    private String rutinaId;
+
+    @Column(name = "maquina_id_e", nullable = false, length = 36)
+    private String maquinaId;
+
+    public String getId() { 
+        return id; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre() { 
+        return nombre; 
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
 
-    public String getRutina() {
-        return rutina;
+    public String getRutinaId() { 
+        return rutinaId; 
     }
 
-    public void setRutina(String rutina) {
-        this.rutina = rutina;
+    public void setRutinaId(String rutinaId) { 
+        this.rutinaId = rutinaId; 
     }
 
-    
+    public String getMaquinaId() { 
+        return maquinaId; 
+    }
 
-
+    public void setMaquinaId(String maquinaId) { 
+        this.maquinaId = maquinaId; 
+    }
 }

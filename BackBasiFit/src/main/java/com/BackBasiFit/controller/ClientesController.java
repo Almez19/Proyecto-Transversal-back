@@ -25,13 +25,13 @@ import com.BackBasiFit.service.RutinasService;
 @RequestMapping("/api/clientes")
 public class ClientesController {
 
-    private final ClientesService service;
+    private final ClientesService clienteService;
     private final ReservasService reservasService;
     private final MembresiasService membresiasService;
     private final RutinasService rutinasService;
 
-    public ClientesController(ClientesService service, ReservasService reservasService, MembresiasService membresiasService, RutinasService rutinasService) {
-        this.service = service;
+    public ClientesController(ClientesService clienteService, ReservasService reservasService, MembresiasService membresiasService, RutinasService rutinasService) {
+        this.clienteService = clienteService;
         this.reservasService = reservasService;
         this.membresiasService = membresiasService;
         this.rutinasService = rutinasService;
@@ -39,16 +39,22 @@ public class ClientesController {
 
     // GET todos los clientes
     @GetMapping
-    public List<Clientes> getAll() { return service.findAll(); }
+    public List<Clientes> getAll() { 
+        
+        return clienteService.findAll(); 
+    }
 
     // GET cliente por id
     @GetMapping("/{id}")
-    public Clientes getById(@PathVariable String id) { return service.findById(id); }
+    public Clientes getById(@PathVariable String id) { 
+        
+        return clienteService.findById(id); 
+    }
 
     // POST crear cliente
     @PostMapping
-    public ResponseEntity<Clientes> create(@RequestBody Clientes c) {
-        Clientes saved = service.save(c);
+    public ResponseEntity<Clientes> create(@RequestBody Clientes cliente) {
+        Clientes saved = clienteService.save(cliente);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -57,31 +63,36 @@ public class ClientesController {
     // DELEETE eliminar cliente
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
-        service.delete(id);
+        clienteService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
     // GET reservas de un cliente
     @GetMapping("/{id}/reservas")
     public List<Reservas> reservasDeCliente(@PathVariable String id) {
+
         return reservasService.findByCliente(id);
     }
 
     // GET membresas de un cliente
     @GetMapping("/{id}/membresias")
     public List<Membresias> membresiasDeCliente(@PathVariable String id) {
+
         return membresiasService.findByCliente(id);
     }
 
     // GET membresia activa
     @GetMapping("/{id}/membresia/activa")
     public Membresias membresiaActiva(@PathVariable String id) {
+
         return membresiasService.findActivaByCliente(id);
     }
 
     // GET rutinas del cliente
     @GetMapping("/{id}/rutinas")
     public List<Rutinas> rutinasDeCliente(@PathVariable String id) {
+        
         return rutinasService.findByCliente(id);
     }
 

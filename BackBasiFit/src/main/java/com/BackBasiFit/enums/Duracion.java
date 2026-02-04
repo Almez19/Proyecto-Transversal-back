@@ -1,5 +1,5 @@
 package com.BackBasiFit.enums;
 
-public enum  Duracion {
-    DIARIO, SAMANAL, MENSUAL, TRIMESTRAL, ANUAL
+public enum Duracion {
+    diario, semanal, mensual, trimestral, anual
 }

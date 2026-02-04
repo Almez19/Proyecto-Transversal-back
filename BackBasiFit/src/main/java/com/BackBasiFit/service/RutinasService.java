@@ -7,29 +7,29 @@ import com.BackBasiFit.repository.RutinasRepository;
 
 @Service
 public class RutinasService {
-    private final RutinasRepository repo;
+    private final RutinasRepository rutinasRepository;
 
-    public RutinasService(RutinasRepository repo) { 
-        this.repo = repo; 
+    public RutinasService(RutinasRepository rutinasRepository) { 
+        this.rutinasRepository = rutinasRepository; 
     }
 
     public List<Rutinas> findAll() { 
-        return repo.findAll(); 
+        return rutinasRepository.findAll(); 
     }
 
     public Rutinas findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta rutina no se ha encontrada"));
+        return rutinasRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta rutina no se ha encontrada"));
     }
 
     public List<Rutinas> findByCliente(String clienteId) { 
-        return repo.findByClienteId(clienteId); 
+        return rutinasRepository.findByClienteId(clienteId); 
     }
 
-    public Rutinas save(Rutinas r) { 
-        return repo.save(r); 
+    public Rutinas save(Rutinas rutina) { 
+        return rutinasRepository.save(rutina); 
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        rutinasRepository.deleteById(id); 
     }
 }

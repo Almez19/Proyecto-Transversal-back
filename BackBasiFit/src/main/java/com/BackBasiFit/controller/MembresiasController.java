@@ -24,22 +24,29 @@ public class MembresiasController {
     @GetMapping
     public Object getAll(@RequestParam(required = false) String clienteId, @RequestParam(required = false) Boolean activa) {
         if (clienteId != null && Boolean.TRUE.equals(activa)) {
+
             return membresiasService.findActivaByCliente(clienteId);
         }
         if (clienteId != null) {
+
             return membresiasService.findByCliente(clienteId);
         }
+
         return membresiasService.findAll();
     }
 
     // GET por id
     @GetMapping("/{id}")
-    public Membresias getById(@PathVariable String id) { return membresiasService.findById(id); }
+    public Membresias getById(@PathVariable String id) { 
+        
+        return membresiasService.findById(id); 
+    }
 
     // DELTE eliminar menmbresia 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         membresiasService.delete(id);
+        
         return ResponseEntity.noContent().build();
     }
 }

@@ -9,29 +9,29 @@ import com.BackBasiFit.repository.MembresiasRepository;
 
 @Service
 public class MembresiasService {
-    private final MembresiasRepository repo;
+    private final MembresiasRepository membresiasRepository;
 
-    public MembresiasService(MembresiasRepository repo) { 
-        this.repo = repo; 
+    public MembresiasService(MembresiasRepository membresiasRepository) { 
+        this.membresiasRepository = membresiasRepository; 
     }
 
     public List<Membresias> findAll() { 
-        return repo.findAll(); 
+        return membresiasRepository.findAll(); 
     }
 
     public Membresias findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encuentra esta membresia"));
+        return membresiasRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encuentra esta membresia"));
     }
 
     public List<Membresias> findByCliente(String clienteId) { 
-        return repo.findByClienteId(clienteId); 
+        return membresiasRepository.findByClienteId(clienteId); 
     }
 
     public Membresias findActivaByCliente(String clienteId) {
-        return repo.findFirstByClienteIdAndEstadoTrueOrderByFechaFinalDesc(clienteId).orElseThrow(() -> new IllegalArgumentException("No hay ninguna membresia activada"));
+        return membresiasRepository.findFirstByClienteIdAndEstadoTrueOrderByFechaFinalDesc(clienteId).orElseThrow(() -> new IllegalArgumentException("No hay ninguna membresia activada"));
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        membresiasRepository.deleteById(id); 
     }
 }

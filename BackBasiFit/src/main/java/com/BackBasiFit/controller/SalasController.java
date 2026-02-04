@@ -35,19 +35,24 @@ public class SalasController {
     @GetMapping
     public List<Salas> getAll(@RequestParam(required = false) String gimnasioId) {
         if (gimnasioId != null) {
+
             return salasService.findByGimnasio(gimnasioId);
         }
+
         return salasService.findAll();
     }
 
     // GET sala por id
     @GetMapping("/{id}")
-    public Salas getById(@PathVariable String id) { return salasService.findById(id); }
+    public Salas getById(@PathVariable String id) { 
+        
+        return salasService.findById(id); 
+    }
 
     // POST nueva sala
     @PostMapping
-    public ResponseEntity<Salas> create(@RequestBody Salas s) {
-        Salas saved = salasService.save(s);
+    public ResponseEntity<Salas> create(@RequestBody Salas sala) {
+        Salas saved = salasService.save(sala);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -57,14 +62,15 @@ public class SalasController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         salasService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
     // GET clases de una sala 
     @GetMapping("/{id}/clases")
-    public List<Clases> clasesDeSala(@PathVariable String id,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+    public List<Clases> clasesDeSala(@PathVariable String id, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
         if (fecha != null) return clasesService.findBySalaAndFecha(id, fecha);
+
         return clasesService.findBySala(id);
     }
 }

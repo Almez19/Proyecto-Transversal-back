@@ -1,6 +1,5 @@
 package com.BackBasiFit.enums;
 
 public enum Rol {
-    ADMIN, EMPLEADO, ENTRENADOR
+    admin, empleado, entrenador
 }
-

@@ -30,18 +30,22 @@ public class EjerciciosController {
     // GET ejercicios por rutina
     @GetMapping
     public List<Ejercicios> getAll(@RequestParam(required = false) String rutinaId) {
-        if (rutinaId != null) return ejerciciosService.findByRutina(rutinaId);
+        if (rutinaId != null) return ejerciciosService.obtenerEjerciciosPorRutinaId(rutinaId);
+
         return ejerciciosService.findAll();
     }
 
     // GET ejercicio por id
     @GetMapping("/{id}")
-    public Ejercicios getById(@PathVariable String id) { return ejerciciosService.findById(id); }
+    public Ejercicios getById(@PathVariable String id) { 
+
+        return ejerciciosService.findById(id); 
+    }
 
     // POST crear ejercicio
     @PostMapping
-    public ResponseEntity<Ejercicios> create(@RequestBody Ejercicios e) {
-        Ejercicios saved = ejerciciosService.save(e);
+    public ResponseEntity<Ejercicios> create(@RequestBody Ejercicios ejercicio) {
+        Ejercicios saved = ejerciciosService.save(ejercicio);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -51,6 +55,7 @@ public class EjerciciosController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         ejerciciosService.delete(id);
+        
         return ResponseEntity.noContent().build();
     }
 }

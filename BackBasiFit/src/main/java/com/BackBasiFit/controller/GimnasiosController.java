@@ -37,8 +37,7 @@ public class GimnasiosController {
     private final MaquinasService maquinasService;
     private final NoticiaService noticiaService;
 
-    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService,
-                              NoticiaService noticiaService, ClasesService clasesService) {
+    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService,NoticiaService noticiaService, ClasesService clasesService) {
         this.gimnasiosService = gimnasiosService;
         this.salasService = salasService;
         this.maquinasService = maquinasService;
@@ -47,16 +46,22 @@ public class GimnasiosController {
 
     // GET todos los gimnasios
     @GetMapping
-    public List<Gimnasios> getAll() { return gimnasiosService.findAll(); }
+    public List<Gimnasios> getAll() { 
+        
+        return gimnasiosService.findAll(); 
+    }
 
     // GET gimnasio por id
     @GetMapping("/{id}")
-    public Gimnasios getById(@PathVariable String id) { return gimnasiosService.findById(id); }
+    public Gimnasios getById(@PathVariable String id) { 
+        
+        return gimnasiosService.findById(id); 
+    }
 
     // POS crear gimnasio
     @PostMapping
-    public ResponseEntity<Gimnasios> create(@RequestBody Gimnasios g) {
-        Gimnasios saved = gimnasiosService.save(g);
+    public ResponseEntity<Gimnasios> create(@RequestBody Gimnasios gimnasio) {
+        Gimnasios saved = gimnasiosService.save(gimnasio);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
         
         return ResponseEntity.created(location).body(saved);
@@ -66,24 +71,28 @@ public class GimnasiosController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         gimnasiosService.delete(id);
+
         return ResponseEntity.noContent().build();
     }
 
     // GET salas de un gimnasio
     @GetMapping("/{id}/salas")
     public List<Salas> salas(@PathVariable String id) {
+
         return salasService.findByGimnasio(id);
     }
 
     // GET maquinas de un gimnasio
     @GetMapping("/{id}/maquinas")
     public List<Maquinas> maquinas(@PathVariable String id) {
+
         return maquinasService.findByGimnasio(id);
     }
 
     // GET noticias de un gimnasio
     @GetMapping("/{id}/noticias")
     public List<Noticias> noticias(@PathVariable String id) {
+
         return noticiaService.findByGimnasioId(id);
     }
 

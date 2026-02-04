@@ -8,68 +8,62 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name= "maquinas")
+@Table(name = "maquinas")
 public class Maquinas {
-    
+
     @Id
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
-    @Column(nullable= false)
-    String nombre;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    @Column(nullable= false)
-    String gimnasio;
+    @Column(name = "gimnasios_id", nullable = false, length = 36)
+    private String gimnasioId;
 
-    @Column(nullable= false)
-    String descripcion;
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
 
-    @Column(nullable= false)
-    String urlImagen;
+    @Column(name = "urlImagen", columnDefinition = "TEXT")
+    private String urlImagen;
 
-    public String getId() {
-        return id;
+    public String getId() { 
+        return id; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre() { 
+        return nombre; 
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
 
-    public String getGimnasio() {
-        return gimnasio;
+    public String getGimnasioId() { 
+        return gimnasioId; 
     }
 
-    public void setGimnasio(String gimnasio) {
-        this.gimnasio = gimnasio;
+    public void setGimnasioId(String gimnasioId) { 
+        this.gimnasioId = gimnasioId; 
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescripcion() { 
+        return descripcion; 
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripcion(String descripcion) { 
+        this.descripcion = descripcion; 
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public String getUrlImagen() { 
+        return urlImagen; 
     }
-
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
-    }
-
     
-
-
-
-
-
+    public void setUrlImagen(String urlImagen) { 
+        this.urlImagen = urlImagen; 
+    }
 }

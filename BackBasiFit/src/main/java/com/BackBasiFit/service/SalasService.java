@@ -7,29 +7,29 @@ import com.BackBasiFit.repository.SalasRepository;
 
 @Service
 public class SalasService {
-    private final SalasRepository repo;
+    private final SalasRepository salasRepository;
 
-    public SalasService(SalasRepository repo) { 
-        this.repo = repo; 
+    public SalasService(SalasRepository salasRepository) { 
+        this.salasRepository = salasRepository; 
     }
 
     public List<Salas> findAll() { 
-        return repo.findAll(); 
+        return salasRepository.findAll(); 
     }
 
     public Salas findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta sala no se ha encontrada"));
+        return salasRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta sala no se ha encontrada"));
     }
 
-    public List<Salas> findByGimnasio(String gimnasio_id) {
-        return repo.findByGimnasio_id(gimnasio_id);
+    public List<Salas> findByGimnasio(String gimnasioId) {
+        return salasRepository.findByGimnasioId(gimnasioId);
     }
 
-    public Salas save(Salas s) { 
-        return repo.save(s); 
+    public Salas save(Salas sala) { 
+        return salasRepository.save(sala); 
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        salasRepository.deleteById(id); 
     }
 }

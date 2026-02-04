@@ -7,25 +7,25 @@ import com.BackBasiFit.repository.GimnasiosRepository;
 
 @Service
 public class GimnasiosService {
-    private final GimnasiosRepository repo;
+    private final GimnasiosRepository gimnasiosRepository;
 
-    public GimnasiosService(GimnasiosRepository repo) { 
-        this.repo = repo; 
+    public GimnasiosService(GimnasiosRepository gimnasiosRepository) { 
+        this.gimnasiosRepository = gimnasiosRepository; 
     }
 
     public List<Gimnasios> findAll() { 
-        return repo.findAll(); 
+        return gimnasiosRepository.findAll(); 
     }
 
     public Gimnasios findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("El Gimnasio exite"));
+        return gimnasiosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("El Gimnasio exite"));
     }
 
-    public Gimnasios save(Gimnasios g) { 
-        return repo.save(g); 
+    public Gimnasios save(Gimnasios gimnasio) { 
+        return gimnasiosRepository.save(gimnasio); 
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        gimnasiosRepository.deleteById(id); 
     }
 }

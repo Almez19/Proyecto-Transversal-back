@@ -8,41 +8,40 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-
-@Table(name= "rutinas")
+@Table(name = "rutinas")
 public class Rutinas {
+
     @Id
-    
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
-    @Column(nullable= false)
-    String nombre;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    @Column(nullable= false)
-    String clienteId;
+    @Column(name = "cliente_id_ru", nullable = false, length = 36)
+    private String clienteId;
 
-    public String getId() {
-        return id;
+    public String getId() { 
+        return id; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre() { 
+        return nombre; 
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
 
-    public String getClienteId() {
-        return clienteId;
+    public String getClienteId() { 
+        return clienteId; 
     }
 
-    public void setClienteId(String clienteId) {
-        this.clienteId = clienteId;
+    public void setClienteId(String clienteId) { 
+        this.clienteId = clienteId; 
     }
-
 }

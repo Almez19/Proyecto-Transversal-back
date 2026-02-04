@@ -8,29 +8,29 @@ import com.BackBasiFit.repository.ClasesRepository;
 
 @Service
 public class ClasesService {
-    private final ClasesRepository repo;
+    private final ClasesRepository clasesRepository;
 
-    public ClasesService(ClasesRepository repo) { 
-        this.repo = repo; 
+    public ClasesService(ClasesRepository clasesRepository) { 
+        this.clasesRepository = clasesRepository; 
     }
 
     public List<Clases> findAll() { 
-        return repo.findAll(); 
+        return clasesRepository.findAll(); 
     }
 
     public Clases findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta clase no existe"));
+        return clasesRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta clase no existe"));
     }
     
     public List<Clases> findBySala(String salaId) { 
-        return repo.findBySalaId(salaId); 
+        return clasesRepository.findBySalaId(salaId); 
     }
 
     public List<Clases> findBySalaAndFecha(String salaId, LocalDate fecha) { 
-        return repo.findBySalaIdAndFecha(salaId, fecha); 
+        return clasesRepository.findBySalaIdAndFecha(salaId, fecha); 
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        clasesRepository.deleteById(id); 
     }
 }

@@ -9,55 +9,61 @@ import com.BackBasiFit.repository.ClientesRepository;
 
 @Service
 public class ReservasService {
-    private final ReservasRepository repo;
-    private final ClientesRepository clientesRepo;
-    private final ClasesRepository clasesRepo;
+    private final ReservasRepository reservasRepository;
+    private final ClientesRepository clientesRepository;
+    private final ClasesRepository clasesRepository;
 
-    public ReservasService(ReservasRepository repo, ClientesRepository clientesRepo, ClasesRepository clasesRepo) {
-        this.repo = repo;
-        this.clientesRepo = clientesRepo;
-        this.clasesRepo = clasesRepo;
+    public ReservasService(
+            ReservasRepository reservasRepository,
+            ClientesRepository clientesRepository,
+            ClasesRepository clasesRepository
+    ) {
+        this.reservasRepository = reservasRepository;
+        this.clientesRepository = clientesRepository;
+        this.clasesRepository = clasesRepository;
     }
 
     public List<Reservas> findAll() { 
-        return repo.findAll(); 
+        return reservasRepository.findAll(); 
     }
 
-    public Reservas findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encuentra esta reserva"));
+    public Reservas findById(String reservaId) {
+        return reservasRepository.findById(reservaId).orElseThrow(() -> new IllegalArgumentException("No se encuentra esta reserva"));
     }
 
     public List<Reservas> findByCliente(String clienteId) {
-        return repo.findByClienteId(clienteId);
+        return reservasRepository.findByClienteId(clienteId);
     }
 
     public List<Reservas> findActivasByClase(String claseId) {
-        return repo.findByClaseIdAndEstadoTrue(claseId);
+        return reservasRepository.findByClaseIdAndEstadoTrue(claseId);
     }
 
     public Reservas reservar(String clienteId, String claseId) {
-        clientesRepo.findById(clienteId).orElseThrow(() -> new IllegalArgumentException("Este cliente no existe"));
-        clasesRepo.findById(claseId).orElseThrow(() -> new IllegalArgumentException("Esta clase no existe"));
-        repo.findByClienteIdAndClaseIdAndEstadoTrue(clienteId, claseId).ifPresent(r -> { throw new IllegalArgumentException("Ya hay ninguna reserva para esta clase"); });
+        clientesRepository.findById(clienteId).orElseThrow(() -> new IllegalArgumentException("Este cliente no existe"));
+        clasesRepository.findById(claseId).orElseThrow(() -> new IllegalArgumentException("Esta clase no existe"));
+        reservasRepository.findByClienteIdAndClaseIdAndEstadoTrue(clienteId, claseId).ifPresent(reservaExistente -> {
+            throw new IllegalArgumentException("Ya hay una reserva para esta clase");
+        });
 
-        Reservas r = new Reservas();
-        r.setClienteId(clienteId);
-        r.setClaseId(claseId);
-        r.setEstado(true);
-        return repo.save(r);
+        Reservas reserva = new Reservas();
+        reserva.setClienteId(clienteId);
+        reserva.setClaseId(claseId);
+        reserva.setEstado(true);
+        return reservasRepository.save(reserva);
     }
 
     public Reservas cancelar(String reservaId) {
-        Reservas r = findById(reservaId);
-        r.setEstado(false);
-        return repo.save(r);
+        Reservas reserva = findById(reservaId);
+        reserva.setEstado(false);
+        return reservasRepository.save(reserva);
     }
 
-    public Reservas save(Reservas r) { 
-        return repo.save(r); 
+    public Reservas save(Reservas reserva) { 
+        return reservasRepository.save(reserva); 
     }
 
-    public void delete(String id) { 
-        repo.deleteById(id); 
+    public void delete(String reservaId) {
+        reservasRepository.deleteById(reservaId);
     }
 }

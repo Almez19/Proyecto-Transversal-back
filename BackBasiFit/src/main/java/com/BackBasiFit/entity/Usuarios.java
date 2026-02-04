@@ -1,10 +1,13 @@
 package com.BackBasiFit.entity;
 
-
 import java.util.UUID;
+
+import com.BackBasiFit.enums.Rol;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -13,103 +16,103 @@ import jakarta.persistence.Table;
 public class Usuarios {
 
     @Id
+    @Column(length = 36)
     private String id = UUID.randomUUID().toString();
 
-    @Column(nullable = false, length= 50)
-    String nombre;
+    @Column(nullable = false, length = 50)
+    private String nombre;
 
-    @Column(nullable = false, length= 50)
-    String apellido1;
+    @Column(nullable = false, length = 50)
+    private String apellido1;
 
-    @Column(nullable = false, length= 50)
-    String apellido2;
+    @Column(nullable = false, length = 50)
+    private String apellido2;
 
-    @Column(nullable = false, length= 9)
-    String DNI_NIE;
+    @Column(name = "DNI_NIE", nullable = false, unique = true, length = 9)
+    private String dniNie;
 
-    @Column(nullable = false, length= 9)
-    Rol ROL;
+    @Column(nullable = false, length = 255)
+    private String contrasena;
 
-    @Column(nullable = false, length= 9)
-    boolean estado;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "ROL", nullable = false)
+    private Rol rol;
 
-    public enum Rol{
-        admin("admin"),
-        empleado("empleado"),
-        entrenador("entrenador"),
-        cliente("cliente");
-    
-        private final String rol;
+    @Column(name = "gimnasio_id", nullable = false, length = 36)
+    private String gimnasioId;
 
-        Rol(String rol){
-            this.rol = rol;
-        }
+    @Column(nullable = false)
+    private Boolean estado = true;
 
-        public String getRol(){
-            return rol;
-        }
+    public String getId() { 
+        return id; 
     }
 
-    public String getId() {
-        return id;
+    public void setId(String id) { 
+        this.id = id; 
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getNombre() { 
+        return nombre; 
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getApellido1() { 
+        return apellido1; 
     }
 
-    public String getApellido1() {
-        return apellido1;
+    public void setApellido1(String apellido1) { 
+        this.apellido1 = apellido1; 
     }
 
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
+    public String getApellido2() { 
+        return apellido2; 
     }
 
-    public String getApellido2() {
-        return apellido2;
+    public void setApellido2(String apellido2) { 
+        this.apellido2 = apellido2; 
     }
 
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
+    public String getDniNie() { 
+        return dniNie; 
     }
 
-    public String getDNI_NIE() {
-        return DNI_NIE;
+    public void setDniNie(String dniNie) { 
+        this.dniNie = dniNie; 
     }
 
-    public void setDNI_NIE(String dNI_NIE) {
-        DNI_NIE = dNI_NIE;
+    public String getContrasena() { 
+        return contrasena; 
     }
 
-    public Rol getROL() {
-        return ROL;
+    public void setContrasena(String contrasena) { 
+        this.contrasena = contrasena; 
     }
 
-    public void setROL(Rol rOL) {
-        ROL = rOL;
+    public Rol getRol() { 
+        return rol; 
     }
 
-    public boolean isEstado() {
-        return estado;
+    public void setRol(Rol rol) { 
+        this.rol = rol; 
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public String getGimnasioId() { 
+        return gimnasioId; 
     }
 
+    public void setGimnasioId(String gimnasioId) { 
+        this.gimnasioId = gimnasioId; 
+    }
 
-    
+    public Boolean getEstado() { 
+        return estado; 
+    }
 
-
-
+    public void setEstado(Boolean estado) { 
+        this.estado = estado; 
+    }
 }
-

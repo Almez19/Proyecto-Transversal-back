@@ -7,29 +7,29 @@ import com.BackBasiFit.repository.NoticiasRepository;
 
 @Service
 public class NoticiaService {
-    private final NoticiasRepository repo;
+    private final NoticiasRepository noticiasRepository;
 
-    public NoticiaService(NoticiasRepository repo) {
-        this.repo = repo;
+    public NoticiaService(NoticiasRepository noticiasRepository) {
+        this.noticiasRepository = noticiasRepository;
     }
 
     public List<Noticias> findAll() { 
-        return repo.findAll(); 
+        return noticiasRepository.findAll(); 
     }
 
     public List<Noticias> findByGimnasioId(String gimnasioId) {
-        return repo.findByGimnasioId(gimnasioId);
+        return noticiasRepository.findByGimnasioId(gimnasioId);
     }
 
     public Noticias findById(String id) {
-        return repo.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta noticia no existe"));
+        return noticiasRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Esta noticia no existe"));
     }
 
-    public Noticias save(Noticias n) { 
-        return repo.save(n); 
+    public Noticias save(Noticias noticia) { 
+        return noticiasRepository.save(noticia); 
     }
 
     public void delete(String id) { 
-        repo.deleteById(id); 
+        noticiasRepository.deleteById(id); 
     }
 }
