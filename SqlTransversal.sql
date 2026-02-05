@@ -121,6 +121,3 @@ create table ejercicios (
     constraint maquina_id_e foreign key (maquina_id_e) References maquinas(id)
 
 );
-
-
-

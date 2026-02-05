@@ -2,8 +2,11 @@ package com.BackBasiFit.service;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.BackBasiFit.entity.Clases;
+import com.BackBasiFit.entity.Clientes;
 import com.BackBasiFit.repository.ClasesRepository;
 
 @Service
@@ -33,4 +36,9 @@ public class ClasesService {
     public void delete(String id) { 
         clasesRepository.deleteById(id); 
     }
+
+    public Clases save(Clases clases) {
+        return clasesRepository.save(clases);
+    }
+
 }

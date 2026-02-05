@@ -1,9 +1,9 @@
 package com.BackBasiFit.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.BackBasiFit.entity.Membresias;
 import com.BackBasiFit.repository.MembresiasRepository;
 
@@ -33,5 +33,9 @@ public class MembresiasService {
 
     public void delete(String id) { 
         membresiasRepository.deleteById(id); 
+    }
+
+    public Membresias save(Membresias membresias) {
+        return membresiasRepository.save(membresias);
     }
 }
