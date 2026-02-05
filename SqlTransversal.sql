@@ -11,6 +11,8 @@ create table Gimnasios(
 	estado boolean NOT NULL DEFAULT TRUE
 );
 
+
+
 CREATE TABLE usuarios (
   id CHAR(36) PRIMARY KEY, -- UUID
   nombre VARCHAR(50) NOT NULL,
@@ -45,14 +47,17 @@ create table noticias(
 	constraint gimnasio_id foreign key (gimnasio_id) References Gimnasios(id)
 );
 
+insert into noticias (id, titulo, cuerpo, urlImagen, fecha, gimnasio_id) values
+('100', 'hola', 'un saludo', 'imagendeperritos', '2026-12-12', '6c4e515e-cc8d-4b33-b078-9e23df78cdcd');
+
 create table salas(
 	id CHAR(36) PRIMARY KEY, -- UUID
     numero_sala int NOT NULL , -- FUNCIONA COMO NOMBRE
     gimnasio_id_s CHAR(36), -- UUID
 	constraint gimnasio_id_s foreign key (gimnasio_id_s) References Gimnasios(id),
 	UNIQUE (numero_sala, gimnasio_id_s)
-	
 );
+
 
 create table clases(
 	id CHAR(36) PRIMARY KEY, -- UUID
@@ -64,10 +69,12 @@ create table clases(
     constraint sala_id_c foreign key (sala_id) References salas(id),
     id_usuarios_c CHAR(36), -- UUID -- ID DEL USUARIO/ENTRENADOR QUE LO CREA
     constraint id_usuarios_c foreign key (id_usuarios_c) References usuarios(id),
-    
     CONSTRAINT chk_horas CHECK (hora_inicio < hora_final)
-    
 );
+
+insert into clases (id, deporte, hora_inicio, hora_final, fecha, sala_id, id_usuarios_c) values
+('100', 'hola', '2026-02-06 14:30:00', '2026-02-06 16:30:00', '2026-02-06', '8d772e37-3725-4692-955c-799aea02e094', 'b0f776b5-9e37-4079-812e-6d402aa49cdb');
+
 
 CREATE TABLE reservas (
   id CHAR(36) PRIMARY KEY, -- UUID
@@ -80,6 +87,7 @@ CREATE TABLE reservas (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   UNIQUE (cliente_id, clase_id) -- evita doble reserva del mismo cliente a la misma clase
 );
+
 
 CREATE TABLE membresias (
   id CHAR(36) PRIMARY KEY, -- UUID
@@ -94,6 +102,10 @@ CREATE TABLE membresias (
     FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   CONSTRAINT chk_fechas CHECK (fecha_inicio < fecha_final)
 );
+
+insert into membresias (id, fecha_inicio, fecha_final, estado, duracion, calidad, precio, cliente_id) values
+('100', '2026-02-04', '2026-03-04', true, 'mensual', 'premium', '35.95', 'fbd60970-60f1-4f5e-942b-0e667e6d9973');
+
 
 create table maquinas(
 	id CHAR(36) PRIMARY KEY, -- UUID
@@ -112,6 +124,10 @@ CREATE TABLE rutinas (
     FOREIGN KEY (cliente_id_ru) REFERENCES clientes(id)
 );
 
+insert into rutinas (id, nombre, cliente_id_ru) values
+('1', 'tu rutina', 'fbd60970-60f1-4f5e-942b-0e667e6d9973');
+
+
 create table ejercicios (
 	id CHAR(36) PRIMARY KEY, -- UUID
     nombre VARCHAR(50) NOT NULL,
@@ -121,3 +137,16 @@ create table ejercicios (
     constraint maquina_id_e foreign key (maquina_id_e) References maquinas(id)
 
 );
+
+select * from usuarios;
+select * from Gimnasios;
+select * from clientes;
+select * from noticias;
+select * from salas;
+select * from clases;
+select * from reservas;
+select * from membresias;
+select * from maquinas;
+select * from rutinas;
+
+
