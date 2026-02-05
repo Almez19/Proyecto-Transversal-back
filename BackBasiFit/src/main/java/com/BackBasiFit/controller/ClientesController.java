@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.BackBasiFit.entity.Clientes;
 import com.BackBasiFit.entity.Membresias;
 import com.BackBasiFit.entity.Reservas;
@@ -25,13 +27,13 @@ import com.BackBasiFit.service.RutinasService;
 @RequestMapping("/api/clientes")
 public class ClientesController {
 
-    private final ClientesService clienteService;
+    private final ClientesService clientesService;
     private final ReservasService reservasService;
     private final MembresiasService membresiasService;
     private final RutinasService rutinasService;
 
-    public ClientesController(ClientesService clienteService, ReservasService reservasService, MembresiasService membresiasService, RutinasService rutinasService) {
-        this.clienteService = clienteService;
+    public ClientesController(ClientesService clientesService, ReservasService reservasService, MembresiasService membresiasService, RutinasService rutinasService) {
+        this.clientesService = clientesService;
         this.reservasService = reservasService;
         this.membresiasService = membresiasService;
         this.rutinasService = rutinasService;
@@ -39,31 +41,63 @@ public class ClientesController {
 
     // GET todos los clientes
     @GetMapping
-    public List<Clientes> getAll() { 
-        
-        return clienteService.findAll(); 
+    public List<Clientes> getAll() {
+
+        return clientesService.findAll();
     }
 
     // GET cliente por id
     @GetMapping("/{id}")
-    public Clientes getById(@PathVariable String id) { 
-        
-        return clienteService.findById(id); 
+    public Clientes getById(@PathVariable String id) {
+
+        return clientesService.findById(id);
     }
 
     // POST crear cliente
     @PostMapping
     public ResponseEntity<Clientes> create(@RequestBody Clientes cliente) {
-        Clientes saved = clienteService.save(cliente);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
+        Clientes clienteGuardado = clientesService.save(cliente);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clienteGuardado.getId()).toUri();
         
-        return ResponseEntity.created(location).body(saved);
+        return ResponseEntity.created(location).body(clienteGuardado);
+    }
+
+    // PUT actualizar datos
+    @PutMapping("/{id}")
+    public Clientes update(@PathVariable String id, @RequestBody Clientes clienteActualizado) {
+        Clientes clienteExistente = clientesService.findById(id);
+        clienteExistente.setNombre(clienteActualizado.getNombre());
+        clienteExistente.setApellido1(clienteActualizado.getApellido1());
+        clienteExistente.setApellido2(clienteActualizado.getApellido2());
+        clienteExistente.setDniNie(clienteActualizado.getDniNie());
+        clienteExistente.setContrasena(clienteActualizado.getContrasena());
+        clienteExistente.setEstado(clienteActualizado.getEstado());
+
+        return clientesService.save(clienteExistente);
+    }
+
+    // PUT activar cuenta de cliente
+    @PutMapping("/{id}/activar")
+    public Clientes activar(@PathVariable String id) {
+        Clientes clienteExistente = clientesService.findById(id);
+        clienteExistente.setEstado(true);
+
+        return clientesService.save(clienteExistente);
+    }
+
+    // PUT desactivar cuenta de cliente
+    @PutMapping("/{id}/desactivar")
+    public Clientes desactivar(@PathVariable String id) {
+        Clientes clienteExistente = clientesService.findById(id);
+        clienteExistente.setEstado(false);
+
+        return clientesService.save(clienteExistente);
     }
 
     // DELEETE eliminar cliente
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
-        clienteService.delete(id);
+        clientesService.delete(id);
 
         return ResponseEntity.noContent().build();
     }
@@ -82,7 +116,7 @@ public class ClientesController {
         return membresiasService.findByCliente(id);
     }
 
-    // GET membresia activa
+    // GET membresia activas
     @GetMapping("/{id}/membresia/activa")
     public Membresias membresiaActiva(@PathVariable String id) {
 
@@ -95,5 +129,4 @@ public class ClientesController {
         
         return rutinasService.findByCliente(id);
     }
-
 }

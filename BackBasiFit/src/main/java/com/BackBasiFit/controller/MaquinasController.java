@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,28 +28,44 @@ public class MaquinasController {
         this.maquinasService = maquinasService;
     }
 
-    // GET maquinas por gimnasio
+    // GET maquinas
     @GetMapping
     public List<Maquinas> getAll(@RequestParam(required = false) String gimnasioId) {
-        if (gimnasioId != null) return maquinasService.findByGimnasio(gimnasioId);
+        // GET maquinas por id gimnasio
+        if (gimnasioId != null) {
+
+            return maquinasService.findByGimnasio(gimnasioId);
+        }
 
         return maquinasService.findAll();
     }
 
     // GET maquinas por id
     @GetMapping("/{id}")
-    public Maquinas getById(@PathVariable String id) { 
-        
-        return maquinasService.findById(id); 
+    public Maquinas getById(@PathVariable String id) {
+
+        return maquinasService.findById(id);
     }
 
     // POST añadir maquina
     @PostMapping
     public ResponseEntity<Maquinas> create(@RequestBody Maquinas maquina) {
-        Maquinas saved = maquinasService.save(maquina);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
+        Maquinas maquinaGuardada = maquinasService.save(maquina);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(maquinaGuardada.getId()).toUri();
         
-        return ResponseEntity.created(location).body(saved);
+        return ResponseEntity.created(location).body(maquinaGuardada);
+    }
+
+    // PUT actualizar datos
+    @PutMapping("/{id}")
+    public Maquinas update(@PathVariable String id, @RequestBody Maquinas maquinaActualizada) {
+        Maquinas maquinaExistente = maquinasService.findById(id);
+        maquinaExistente.setNombre(maquinaActualizada.getNombre());
+        maquinaExistente.setGimnasioId(maquinaActualizada.getGimnasioId());
+        maquinaExistente.setDescripcion(maquinaActualizada.getDescripcion());
+        maquinaExistente.setUrlImagen(maquinaActualizada.getUrlImagen());
+
+        return maquinasService.save(maquinaExistente);
     }
 
     // DELETE eliminar maquina

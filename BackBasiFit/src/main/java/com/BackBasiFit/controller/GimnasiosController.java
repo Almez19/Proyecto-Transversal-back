@@ -1,10 +1,8 @@
 package com.BackBasiFit.controller;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,16 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.BackBasiFit.entity.Clases;
 import com.BackBasiFit.entity.Gimnasios;
 import com.BackBasiFit.entity.Maquinas;
 import com.BackBasiFit.entity.Noticias;
 import com.BackBasiFit.entity.Salas;
-import com.BackBasiFit.service.ClasesService;
 import com.BackBasiFit.service.GimnasiosService;
 import com.BackBasiFit.service.MaquinasService;
 import com.BackBasiFit.service.NoticiaService;
@@ -37,7 +32,7 @@ public class GimnasiosController {
     private final MaquinasService maquinasService;
     private final NoticiaService noticiaService;
 
-    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService,NoticiaService noticiaService, ClasesService clasesService) {
+    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService, NoticiaService noticiaService) {
         this.gimnasiosService = gimnasiosService;
         this.salasService = salasService;
         this.maquinasService = maquinasService;
@@ -46,25 +41,55 @@ public class GimnasiosController {
 
     // GET todos los gimnasios
     @GetMapping
-    public List<Gimnasios> getAll() { 
-        
-        return gimnasiosService.findAll(); 
+    public List<Gimnasios> getAll() {
+
+        return gimnasiosService.findAll();
     }
 
     // GET gimnasio por id
     @GetMapping("/{id}")
-    public Gimnasios getById(@PathVariable String id) { 
-        
-        return gimnasiosService.findById(id); 
+    public Gimnasios getById(@PathVariable String id) {
+
+        return gimnasiosService.findById(id);
     }
 
-    // POS crear gimnasio
+    // POST crear gimnasio
     @PostMapping
     public ResponseEntity<Gimnasios> create(@RequestBody Gimnasios gimnasio) {
-        Gimnasios saved = gimnasiosService.save(gimnasio);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
+        Gimnasios gimnasioGuardado = gimnasiosService.save(gimnasio);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(gimnasioGuardado.getId()).toUri();
         
-        return ResponseEntity.created(location).body(saved);
+        return ResponseEntity.created(location).body(gimnasioGuardado);
+    }
+
+    // PUT actualizar datos
+    @PutMapping("/{id}")
+    public Gimnasios update(@PathVariable String id, @RequestBody Gimnasios gimnasioActualizado) {
+        Gimnasios gimnasioExistente = gimnasiosService.findById(id);
+        gimnasioExistente.setUbicacion(gimnasioActualizado.getUbicacion());
+        gimnasioExistente.setCiudad(gimnasioActualizado.getCiudad());
+        gimnasioExistente.setNombre(gimnasioActualizado.getNombre());
+        gimnasioExistente.setEstado(gimnasioActualizado.getEstado());
+
+        return gimnasiosService.save(gimnasioExistente);
+    }
+
+    // PUT abrir gimnasio
+    @PutMapping("/{id}/activar")
+    public Gimnasios activar(@PathVariable String id) {
+        Gimnasios gimnasioExistente = gimnasiosService.findById(id);
+        gimnasioExistente.setEstado(true);
+
+        return gimnasiosService.save(gimnasioExistente);
+    }
+
+    // PUT cerrar gimnasio
+    @PutMapping("/{id}/desactivar")
+    public Gimnasios desactivar(@PathVariable String id) {
+        Gimnasios gimnasioExistente = gimnasiosService.findById(id);
+        gimnasioExistente.setEstado(false);
+
+        return gimnasiosService.save(gimnasioExistente);
     }
 
     // DELETE borrar gimnasio
@@ -78,7 +103,7 @@ public class GimnasiosController {
     // GET salas de un gimnasio
     @GetMapping("/{id}/salas")
     public List<Salas> salas(@PathVariable String id) {
-
+        
         return salasService.findByGimnasio(id);
     }
 
@@ -95,5 +120,4 @@ public class GimnasiosController {
 
         return noticiaService.findByGimnasioId(id);
     }
-
 }

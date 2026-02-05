@@ -30,6 +30,14 @@ public class ClasesService {
         return clasesRepository.findBySalaIdAndFecha(salaId, fecha); 
     }
 
+    public List<Clases> findByUsuarioClase(String usuarioClaseId) {
+        return clasesRepository.findByUsuarioClaseId(usuarioClaseId);
+    }
+
+    public Clases save(Clases clase) {
+        return clasesRepository.save(clase);
+    }
+
     public void delete(String id) { 
         clasesRepository.deleteById(id); 
     }

@@ -2,16 +2,19 @@ package com.BackBasiFit.controller;
 
 import java.net.URI;
 import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.BackBasiFit.entity.Noticias;
 import com.BackBasiFit.service.NoticiaService;
 
@@ -25,28 +28,45 @@ public class NoticiasController {
         this.noticiaService = noticiaService;
     }
 
-    // GET noticia por is de gimnacio
+    // GET noticia 
     @GetMapping
     public List<Noticias> getAll(@RequestParam(required = false) String gimnasioId) {
-        if (gimnasioId != null) return noticiaService.findByGimnasioId(gimnasioId);
+        // GET noticia por is de gimnacio
+        if (gimnasioId != null) {
+
+            return noticiaService.findByGimnasioId(gimnasioId);
+        }
 
         return noticiaService.findAll();
     }
 
     // GET por id 
     @GetMapping("/{id}")
-    public Noticias getById(@PathVariable String id) { 
-        
-        return noticiaService.findById(id); 
+    public Noticias getById(@PathVariable String id) {
+
+        return noticiaService.findById(id);
     }
 
     // POST crear noticias
     @PostMapping
     public ResponseEntity<Noticias> create(@RequestBody Noticias noticia) {
-        Noticias saved = noticiaService.save(noticia);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
+        Noticias noticiaGuardada = noticiaService.save(noticia);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(noticiaGuardada.getId()).toUri();
         
-        return ResponseEntity.created(location).body(saved);
+        return ResponseEntity.created(location).body(noticiaGuardada);
+    }
+
+    // PUT actualizar datos
+    @PutMapping("/{id}")
+    public Noticias update(@PathVariable String id, @RequestBody Noticias noticiaActualizada) {
+        Noticias noticiaExistente = noticiaService.findById(id);
+        noticiaExistente.setTitulo(noticiaActualizada.getTitulo());
+        noticiaExistente.setCuerpo(noticiaActualizada.getCuerpo());
+        noticiaExistente.setUrlImagen(noticiaActualizada.getUrlImagen());
+        noticiaExistente.setFecha(noticiaActualizada.getFecha());
+        noticiaExistente.setGimnasioId(noticiaActualizada.getGimnasioId());
+
+        return noticiaService.save(noticiaExistente);
     }
 
     // DELTE eliminar noticias

@@ -36,7 +36,7 @@ public class Clases {
     private String salaId;
 
     @Column(name = "id_usuarios_c", nullable = false, length = 36)
-    private String usuarioCreadorId;
+    private String usuarioClaseId;
 
     public String getId() { 
         return id;
@@ -86,11 +86,11 @@ public class Clases {
         this.salaId = salaId; 
     }
 
-    public String getUsuarioCreadorId() { 
-        return usuarioCreadorId; 
+    public String getUsuarioClaseId() { 
+        return usuarioClaseId; 
     }
 
-    public void setUsuarioCreadorId(String usuarioCreadorId) { 
-        this.usuarioCreadorId = usuarioCreadorId; 
+    public void setUsuarioClaseId(String usuarioClaseId) { 
+        this.usuarioClaseId = usuarioClaseId; 
     }
 }

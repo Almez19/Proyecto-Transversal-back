@@ -3,6 +3,7 @@ package com.BackBasiFit.controller;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import com.BackBasiFit.entity.Reservas;
 import com.BackBasiFit.service.ReservasService;
 
@@ -27,14 +29,15 @@ public class ReservasController {
         this.reservasService = reservasService;
     }
 
-    // GET todas las reservas, de un cliente concreto, reservas activas
+    // GET reservas
     @GetMapping
     public List<Reservas> getAll(@RequestParam(required = false) String clienteId, @RequestParam(required = false) String claseId, @RequestParam(required = false, defaultValue = "false") boolean soloActivas) {
+        // GET reservas por id cliente
         if (clienteId != null) {
 
             return reservasService.findByCliente(clienteId);
         }
-
+        // GET reservas por clase activa
         if (claseId != null && soloActivas) {
 
             return reservasService.findActivasByClase(claseId);
@@ -45,18 +48,29 @@ public class ReservasController {
 
     // GET por id
     @GetMapping("/{id}")
-    public Reservas getById(@PathVariable String id) { 
-        
-        return reservasService.findById(id); 
+    public Reservas getById(@PathVariable String id) {
+
+        return reservasService.findById(id);
     }
 
     // POST crear reservas
     @PostMapping
     public ResponseEntity<Reservas> create(@RequestBody Reservas reserva) {
-        Reservas saved = reservasService.save(reserva);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(saved.getId()).toUri();
-        
-        return ResponseEntity.created(location).body(saved);
+        Reservas reservaGuardada = reservasService.save(reserva);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(reservaGuardada.getId()).toUri();
+
+        return ResponseEntity.created(location).body(reservaGuardada);
+    }
+
+    // PUT actualizar datos
+    @PutMapping("/{id}")
+    public Reservas update(@PathVariable String id, @RequestBody Reservas reservaActualizada) {
+        Reservas reservaExistente = reservasService.findById(id);
+        reservaExistente.setClienteId(reservaActualizada.getClienteId());
+        reservaExistente.setClaseId(reservaActualizada.getClaseId());
+        reservaExistente.setEstado(reservaActualizada.getEstado());
+
+        return reservasService.save(reservaExistente);
     }
 
     // DELTE eliminar reserva
@@ -67,26 +81,10 @@ public class ReservasController {
         return ResponseEntity.noContent().build();
     }
 
-    // POST crear reserva por id de cliente y la clase
-    @PostMapping("/reservar")
-    public ResponseEntity<Reservas> reservar(@RequestBody Map<String, String> body) {
-        String clienteId = body.get("clienteId");
-        String claseId = body.get("claseId");
-
-        if (clienteId == null || claseId == null) {
-            throw new IllegalArgumentException("clienteId y claseId son obligatorios");
-        }
-
-        Reservas saved = reservasService.reservar(clienteId, claseId);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/reservas/{id}").buildAndExpand(saved.getId()).toUri();
-        
-        return ResponseEntity.created(location).body(saved);
-    }
-
     // PUT cancelar reserva
     @PutMapping("/{id}/cancelar")
     public Reservas cancelar(@PathVariable String id) {
-        
+
         return reservasService.cancelar(id);
     }
 }

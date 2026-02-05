@@ -31,6 +31,16 @@ public class MembresiasService {
         return membresiasRepository.findFirstByClienteIdAndEstadoTrueOrderByFechaFinalDesc(clienteId).orElseThrow(() -> new IllegalArgumentException("No hay ninguna membresia activada"));
     }
 
+    public Membresias save(Membresias membresia) {
+        return membresiasRepository.save(membresia);
+    }
+
+    public Membresias cambiarEstado(String membresiaId, boolean estado) {
+        Membresias membresia = findById(membresiaId);
+        membresia.setEstado(estado);
+        return membresiasRepository.save(membresia);
+    }
+
     public void delete(String id) { 
         membresiasRepository.deleteById(id); 
     }
