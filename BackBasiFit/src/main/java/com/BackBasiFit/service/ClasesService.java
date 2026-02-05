@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.BackBasiFit.entity.Clases;
-import com.BackBasiFit.entity.Clientes;
 import com.BackBasiFit.repository.ClasesRepository;
 
 @Service

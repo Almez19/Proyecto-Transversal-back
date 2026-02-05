@@ -23,11 +23,9 @@ import com.BackBasiFit.service.ReservasService;
 public class ClasesController {
 
     private final ClasesService clasesService;
-    private final ReservasService reservasService;
 
     public ClasesController(ClasesService clasesService, ReservasService reservasService) {
         this.clasesService = clasesService;
-        this.reservasService = reservasService;
     }
 
     @GetMapping
