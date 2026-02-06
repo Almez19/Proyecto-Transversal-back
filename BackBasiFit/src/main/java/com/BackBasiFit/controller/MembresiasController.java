@@ -1,7 +1,6 @@
 package com.BackBasiFit.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,10 +29,7 @@ public class MembresiasController {
 
     // GET membresias, por id, activas
     @GetMapping
-    public Object getAll(
-            @RequestParam(required = false) String clienteId,
-            @RequestParam(required = false) Boolean activa
-    ) {
+    public Object getAll(@RequestParam(required = false) String clienteId, @RequestParam(required = false) Boolean activa) {
         // GET membresias por id de cliente
         if (clienteId != null && Boolean.TRUE.equals(activa)) {
 

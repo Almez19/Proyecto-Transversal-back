@@ -1,7 +1,9 @@
 package com.BackBasiFit.service;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.BackBasiFit.entity.Noticias;
 import com.BackBasiFit.repository.NoticiasRepository;
 
@@ -17,6 +19,10 @@ public class NoticiaService {
         return noticiasRepository.findAll(); 
     }
 
+    public List<Noticias> findTop3ByOrderByFechaDesc() { 
+        return noticiasRepository.findTop3ByOrderByFechaDesc(); 
+    }
+    
     public List<Noticias> findByGimnasioId(String gimnasioId) {
         return noticiasRepository.findByGimnasioId(gimnasioId);
     }

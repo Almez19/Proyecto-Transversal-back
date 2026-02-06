@@ -31,13 +31,19 @@ public class NoticiasController {
     // GET noticia 
     @GetMapping
     public List<Noticias> getAll(@RequestParam(required = false) String gimnasioId) {
-        // GET noticia por is de gimnacio
+        // GET noticia por id de gimnacio
         if (gimnasioId != null) {
 
             return noticiaService.findByGimnasioId(gimnasioId);
         }
-
+    
         return noticiaService.findAll();
+    }
+
+    //GET ultimas 3 noticias añadidas
+    @GetMapping("/ultimas")
+    public List<Noticias> ultimasNoticias() {
+         return noticiaService.findTop3ByOrderByFechaDesc();
     }
 
     // GET por id 

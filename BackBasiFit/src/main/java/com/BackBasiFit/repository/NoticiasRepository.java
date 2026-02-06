@@ -8,4 +8,5 @@ import com.BackBasiFit.entity.Noticias;
 
 public interface NoticiasRepository extends JpaRepository<Noticias, String> {
     List<Noticias> findByGimnasioId(String gimnasioId);
+    List<Noticias> findTop3ByOrderByFechaDesc();
 }
