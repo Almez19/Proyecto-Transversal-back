@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.BackBasiFit.entity.Clases;
 import com.BackBasiFit.entity.Gimnasios;
 import com.BackBasiFit.entity.Maquinas;
 import com.BackBasiFit.entity.Noticias;
@@ -126,13 +124,19 @@ public class GimnasiosController {
         return noticiaService.findByGimnasioId(id);
     }
 
-    @GetMapping("/{id}/clases")
-    public List<Clases> clasesDeGimnasio(@PathVariable String id, @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate fecha) {
-        // Salas del gimnasio
-        List<Salas> salas = salasService.findByGimnasio(id);
+    // @GetMapping("/{id}/clases")
+    // public List<Clases> clasesDeGimnasio(@PathVariable String id, @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate fecha) {
+    //     // Salas del gimnasio
+    //     List<Salas> salas = salasService.findByGimnasio(id);
 
-        // por fecha
-        return salas.stream().flatMap(s -> (fecha != null? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
-    }
+    //     // por fecha
+    //     return salas.stream().flatMap(s -> (fecha != null? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
+    // }
+
+    //GET numero especifco de gimnasios
+    // @GetMapping("/numgimnasios")
+    // public List<Gimnasios> numgimnasiosGimnasios() {
+    //      return gimnasiosService.findTop5ByOrderByFechaDesc();
+    // }
 
 }
