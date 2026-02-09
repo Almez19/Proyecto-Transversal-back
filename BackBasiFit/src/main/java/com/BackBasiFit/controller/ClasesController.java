@@ -39,10 +39,11 @@ public class ClasesController {
     @GetMapping
     public List<Clases> getAll(@RequestParam(required = false) String salaId, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha, @RequestParam(required = false) String usuarioClaseId) {
         // GET por fecha
-        if (salaId != null && fecha != null) {
-
-            return clasesService.findBySalaAndFecha(salaId, fecha);
+        if (fecha != null && salaId == null) {
+            
+            return clasesService.findByFecha(fecha);
         }
+
         // GET por id de sala
         if (salaId != null) {
 

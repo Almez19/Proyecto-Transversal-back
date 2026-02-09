@@ -11,4 +11,6 @@ public interface ClasesRepository extends JpaRepository<Clases, String> {
     List<Clases> findBySalaId(String salaId);
     List<Clases> findBySalaIdAndFecha(String salaId, LocalDate fecha);
     List<Clases> findByUsuarioClaseId(String usuarioClaseId);
+    List<Clases> findByFecha(LocalDate fecha);
+
 }

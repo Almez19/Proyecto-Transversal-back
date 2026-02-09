@@ -116,13 +116,6 @@ public class ClientesController {
         return membresiasService.findByCliente(id);
     }
 
-    // GET membresia activas
-    @GetMapping("/{id}/membresia/activa")
-    public Membresias membresiaActiva(@PathVariable String id) {
-
-        return membresiasService.findActivaByCliente(id);
-    }
-
     // GET rutinas del cliente
     @GetMapping("/{id}/rutinas")
     public List<Rutinas> rutinasDeCliente(@PathVariable String id) {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.BackBasiFit.entity.Usuarios;
+import com.BackBasiFit.enums.Rol;
 import com.BackBasiFit.repository.UsuariosRepository;
 
 @Service
@@ -29,5 +30,9 @@ public class UsuariosService {
 
     public void delete(String id) { 
         usuariosRepository.deleteById(id); 
+    }
+
+    public List<Usuarios> findByRol(Rol rol) {
+        return usuariosRepository.findByRol(rol);
     }
 }

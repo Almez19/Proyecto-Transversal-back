@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.BackBasiFit.entity.Clases;
 import com.BackBasiFit.entity.Gimnasios;
 import com.BackBasiFit.entity.Maquinas;
 import com.BackBasiFit.entity.Noticias;
 import com.BackBasiFit.entity.Salas;
+import com.BackBasiFit.service.ClasesService;
 import com.BackBasiFit.service.GimnasiosService;
 import com.BackBasiFit.service.MaquinasService;
 import com.BackBasiFit.service.NoticiaService;
@@ -31,12 +34,14 @@ public class GimnasiosController {
     private final SalasService salasService;
     private final MaquinasService maquinasService;
     private final NoticiaService noticiaService;
+    private final ClasesService clasesService;
 
-    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService, NoticiaService noticiaService) {
+    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService, NoticiaService noticiaService, ClasesService clasesService) {
         this.gimnasiosService = gimnasiosService;
         this.salasService = salasService;
         this.maquinasService = maquinasService;
         this.noticiaService = noticiaService;
+        this.clasesService = clasesService;
     }
 
     // GET todos los gimnasios
@@ -120,4 +125,14 @@ public class GimnasiosController {
 
         return noticiaService.findByGimnasioId(id);
     }
+
+    @GetMapping("/{id}/clases")
+    public List<Clases> clasesDeGimnasio(@PathVariable String id, @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate fecha) {
+        // Salas del gimnasio
+        List<Salas> salas = salasService.findByGimnasio(id);
+
+        // por fecha
+        return salas.stream().flatMap(s -> (fecha != null? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
+    }
+
 }

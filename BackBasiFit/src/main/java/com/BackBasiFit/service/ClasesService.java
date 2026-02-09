@@ -41,4 +41,9 @@ public class ClasesService {
     public void delete(String id) { 
         clasesRepository.deleteById(id); 
     }
+    
+    public List<Clases> findByFecha(LocalDate fecha) {
+        return clasesRepository.findByFecha(fecha);
+}
+
 }
