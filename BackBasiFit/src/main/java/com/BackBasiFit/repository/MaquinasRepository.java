@@ -8,4 +8,5 @@ import com.BackBasiFit.entity.Maquinas;
 
 public interface MaquinasRepository extends JpaRepository<Maquinas, String> {
     List<Maquinas> findByGimnasioId(String gimnasioId);
+    List<Maquinas> findTop5ByOrderByIdDesc();
 }

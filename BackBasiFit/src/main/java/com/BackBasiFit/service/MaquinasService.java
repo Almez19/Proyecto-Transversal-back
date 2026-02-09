@@ -1,7 +1,9 @@
 package com.BackBasiFit.service;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.BackBasiFit.entity.Maquinas;
 import com.BackBasiFit.repository.MaquinasRepository;
 
@@ -31,5 +33,9 @@ public class MaquinasService {
 
     public void delete(String id) { 
         maquinasRepository.deleteById(id); 
+    }
+
+     public List<Maquinas> findTop5ByOrderByIdDesc() { 
+        return maquinasRepository.findTop5ByOrderByIdDesc(); 
     }
 }

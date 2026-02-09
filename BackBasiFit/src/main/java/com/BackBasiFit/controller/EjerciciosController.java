@@ -47,6 +47,13 @@ public class EjerciciosController {
         return ejerciciosService.findById(id);
     }
 
+    //GET 5 ejercicios 
+    @GetMapping("/numeroejercicios")
+    public List<Ejercicios> numeroejerciciosEjercicios() {
+        
+         return ejerciciosService.findTop5ByOrderByIdDesc();
+    }
+
     // POST crear ejercicio
     @PostMapping
     public ResponseEntity<Ejercicios> create(@RequestBody Ejercicios ejercicio) {

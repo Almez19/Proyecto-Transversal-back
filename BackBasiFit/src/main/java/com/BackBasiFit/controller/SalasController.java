@@ -91,4 +91,11 @@ public class SalasController {
 
         return clasesService.findBySala(id);
     }
+
+    //GET 5 salas 
+    @GetMapping("/numerosalas")
+    public List<Salas> numerosalasSalas() {
+         return salasService.findTop5ByOrderByGimnasioIdDesc();
+    }
+
 }

@@ -133,10 +133,16 @@ public class GimnasiosController {
     //     return salas.stream().flatMap(s -> (fecha != null? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
     // }
 
-    //GET numero especifco de gimnasios
-    // @GetMapping("/numgimnasios")
-    // public List<Gimnasios> numgimnasiosGimnasios() {
-    //      return gimnasiosService.findTop5ByOrderByFechaDesc();
-    // }
+    // GET numero especifco de gimnasios
+    @GetMapping("/numgimnasios")
+    public List<Gimnasios> numgimnasiosGimnasios() {
+         return gimnasiosService.findTop5ByOrderByIdDesc();
+    }
+
+    // GET 10 gimnasios abiertos
+    @GetMapping("/abiertos")
+    public List<Gimnasios> abiertosGimnasios() {
+         return gimnasiosService.findTop10ByOrderByEstadoDesc();
+    }
 
 }

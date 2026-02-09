@@ -47,6 +47,12 @@ public class MaquinasController {
         return maquinasService.findById(id);
     }
 
+    //GET 5 maquinas
+    @GetMapping("/numeromaquinas")
+    public List<Maquinas> numeromaquinasMaquinas() {
+         return maquinasService.findTop5ByOrderByIdDesc();
+    }
+
     // POST añadir maquina
     @PostMapping
     public ResponseEntity<Maquinas> create(@RequestBody Maquinas maquina) {

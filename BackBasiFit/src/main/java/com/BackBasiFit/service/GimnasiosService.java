@@ -1,7 +1,9 @@
 package com.BackBasiFit.service;
 
 import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.BackBasiFit.entity.Gimnasios;
 import com.BackBasiFit.repository.GimnasiosRepository;
 
@@ -27,5 +29,13 @@ public class GimnasiosService {
 
     public void delete(String id) { 
         gimnasiosRepository.deleteById(id); 
+    }
+
+    public List<Gimnasios> findTop5ByOrderByIdDesc() { 
+        return gimnasiosRepository.findTop5ByOrderByIdDesc(); 
+    }
+
+    public List<Gimnasios> findTop10ByOrderByEstadoDesc(){
+        return gimnasiosRepository.findTop10ByOrderByEstadoDesc();
     }
 }

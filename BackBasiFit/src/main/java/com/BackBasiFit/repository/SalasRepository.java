@@ -8,4 +8,5 @@ import com.BackBasiFit.entity.Salas;
 
 public interface SalasRepository extends JpaRepository<Salas, String> {
     List<Salas> findByGimnasioId(String gimnasioId);
+    List<Salas> findTop5ByOrderByGimnasioIdDesc();
 }

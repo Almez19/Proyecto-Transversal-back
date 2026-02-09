@@ -8,4 +8,5 @@ import com.BackBasiFit.entity.Rutinas;
 
 public interface RutinasRepository extends JpaRepository<Rutinas, String> {
     List<Rutinas> findByClienteId(String clienteId);
+    List<Rutinas> findTop5ByOrderByIdDesc();
 }

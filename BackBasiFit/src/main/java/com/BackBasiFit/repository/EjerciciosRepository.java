@@ -8,4 +8,5 @@ import com.BackBasiFit.entity.Ejercicios;
 
 public interface EjerciciosRepository extends JpaRepository<Ejercicios, String> {
     List<Ejercicios> findByRutinaId(String rutinaId);
+    List<Ejercicios> findTop5ByOrderByIdDesc();
 }

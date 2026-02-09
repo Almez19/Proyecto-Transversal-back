@@ -53,6 +53,12 @@ public class ClientesController {
         return clientesService.findById(id);
     }
 
+    //GET 5 clientes abonados
+    @GetMapping("/numeroclientes")
+    public List<Clientes> numeroclientesClientes() {
+         return clientesService.findTop5ByOrderByEstadoDesc();
+    }
+
     // POST crear cliente
     @PostMapping
     public ResponseEntity<Clientes> create(@RequestBody Clientes cliente) {

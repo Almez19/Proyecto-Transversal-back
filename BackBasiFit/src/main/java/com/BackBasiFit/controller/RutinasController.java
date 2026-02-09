@@ -51,6 +51,12 @@ public class RutinasController {
         return rutinasService.findById(id);
     }
 
+    //GET 5 rutinas
+    @GetMapping("/numerorutinas")
+    public List<Rutinas> numerorutinasRutinas() {
+         return rutinasService.findTop5ByOrderByIdDesc();
+    }
+
     // POST crear rutina
     @PostMapping
     public ResponseEntity<Rutinas> create(@RequestBody Rutinas rutina) {

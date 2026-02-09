@@ -3,6 +3,7 @@ package com.BackBasiFit.service;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.BackBasiFit.entity.Clientes;
+import com.BackBasiFit.entity.Gimnasios;
 import com.BackBasiFit.repository.ClientesRepository;
 
 @Service
@@ -27,5 +28,9 @@ public class ClientesService {
 
     public void delete(String id) { 
         clientesRepository.deleteById(id); 
+    }
+
+    public List<Clientes> findTop5ByOrderByEstadoDesc() { 
+        return clientesRepository.findTop5ByOrderByEstadoDesc(); 
     }
 }

@@ -49,6 +49,12 @@ public class UsuariosController {
     //     return usuariosService.findAll();
     // }
 
+    //GET usaurio
+    @GetMapping("/numerousuarios")
+    public List<Usuarios> numerosusuariosUsuarios() {
+         return usuariosService.findTop5ByOrderByEstadoDesc();
+    }
+
     // POST nueva usuarios
     @PostMapping
     public ResponseEntity<Usuarios> create(@RequestBody Usuarios usuario) {
