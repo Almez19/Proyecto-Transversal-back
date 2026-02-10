@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.RequestParam;
+import com.BackBasiFit.enums.Rol;
 
 import com.BackBasiFit.entity.Usuarios;
 import com.BackBasiFit.service.UsuariosService;
@@ -42,12 +44,12 @@ public class UsuariosController {
     }
 
     // GET usuario por rol
-    // @GetMapping
-    // public List<Usuarios> getAll(@RequestParam(required = false) Rol rol) {
-    //     if (rol != null) return usuariosService.findByRol(rol);
+    @GetMapping("/rol/{rol}")
+    public List<Usuarios> getByRol(@PathVariable Rol rol) {
+        
+        return usuariosService.findByRol(rol);
+    }
 
-    //     return usuariosService.findAll();
-    // }
 
     //GET usaurio
     @GetMapping("/numerousuarios")

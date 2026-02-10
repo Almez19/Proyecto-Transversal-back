@@ -3,6 +3,9 @@ package com.BackBasiFit.controller;
 import java.net.URI;
 import java.util.List;
 
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.BackBasiFit.entity.Clases;
 import com.BackBasiFit.entity.Gimnasios;
 import com.BackBasiFit.entity.Maquinas;
 import com.BackBasiFit.entity.Noticias;
@@ -124,14 +128,13 @@ public class GimnasiosController {
         return noticiaService.findByGimnasioId(id);
     }
 
-    // @GetMapping("/{id}/clases")
-    // public List<Clases> clasesDeGimnasio(@PathVariable String id, @RequestParam(required = false) @org.springframework.format.annotation.DateTimeFormat(iso = org.springframework.format.annotation.DateTimeFormat.ISO.DATE) java.time.LocalDate fecha) {
-    //     // Salas del gimnasio
-    //     List<Salas> salas = salasService.findByGimnasio(id);
+    // GET clases del gimnasio
+    @GetMapping("/{id}/clases")
+    public List<Clases> clasesDeGimnasio(@PathVariable String id, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+        List<Salas> salas = salasService.findByGimnasio(id);
 
-    //     // por fecha
-    //     return salas.stream().flatMap(s -> (fecha != null? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
-    // }
+        return salas.stream().flatMap(s -> (fecha != null ? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
+    }
 
     // GET numero especifco de gimnasios
     @GetMapping("/numgimnasios")
