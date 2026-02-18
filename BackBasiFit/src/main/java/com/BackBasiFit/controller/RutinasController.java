@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.BackBasiFit.entity.Ejercicios;
 import com.BackBasiFit.entity.Rutinas;
 import com.BackBasiFit.service.EjerciciosService;
@@ -33,6 +35,7 @@ public class RutinasController {
     }
 
     // GET rutinas 
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO','ENTRENADOR') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0))")
     @GetMapping
     public List<Rutinas> getAll(@RequestParam(required = false) String clienteId) {
         // GET rutinas por is cliente
@@ -45,6 +48,7 @@ public class RutinasController {
     }
 
     // GET rutina por id
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO','ENTRENADOR') or (hasRole('CLIENTE') and @securityUtil.esRutinaDeMiCliente(#p0))")
     @GetMapping("/{id}")
     public Rutinas getById(@PathVariable String id) {
 
@@ -58,6 +62,7 @@ public class RutinasController {
     }
 
     // POST crear rutina
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO','ENTRENADOR')")
     @PostMapping
     public ResponseEntity<Rutinas> create(@RequestBody Rutinas rutina) {
         Rutinas rutinaGuardada = rutinasService.save(rutina);

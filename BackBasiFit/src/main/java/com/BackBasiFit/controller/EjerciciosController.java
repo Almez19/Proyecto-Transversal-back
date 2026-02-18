@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.BackBasiFit.entity.Ejercicios;
 import com.BackBasiFit.service.EjerciciosService;
 
 @RestController
 @RequestMapping("/api/ejercicios")
+@PreAuthorize("hasAnyRole('ADMIN','EMPLEADO','ENTRENADOR')")
 public class EjerciciosController {
 
     private final EjerciciosService ejerciciosService;

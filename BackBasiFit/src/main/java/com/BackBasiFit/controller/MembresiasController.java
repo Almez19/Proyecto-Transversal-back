@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.BackBasiFit.entity.Membresias;
 import com.BackBasiFit.service.MembresiasService;
 
@@ -28,6 +30,7 @@ public class MembresiasController {
     }
 
     // GET membresias, por id, activas
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0))")
     @GetMapping
     public Object getAll(@RequestParam(required = false) String clienteId, @RequestParam(required = false) Boolean activa) {
         // GET membresias por id de cliente
@@ -40,6 +43,7 @@ public class MembresiasController {
     }
 
     // GET por id
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMembresiaDeMiCliente(#p0))")
     @GetMapping("/{id}")
     public Membresias getById(@PathVariable String id) {
 
@@ -47,6 +51,7 @@ public class MembresiasController {
     }
 
     // POST crear membresia
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @PostMapping
     public ResponseEntity<Membresias> create(@RequestBody Membresias membresia) {
         Membresias membresiaGuardada = membresiasService.save(membresia);

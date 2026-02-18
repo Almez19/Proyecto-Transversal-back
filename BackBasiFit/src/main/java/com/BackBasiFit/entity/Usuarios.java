@@ -28,6 +28,9 @@ public class Usuarios {
     @Column(nullable = false, length = 50)
     private String apellido2;
 
+    @Column(nullable = false, unique = true, length = 100)
+    private String email;
+
     @Column(name = "DNI_NIE", nullable = false, unique = true, length = 9)
     private String dniNie;
 
@@ -76,6 +79,14 @@ public class Usuarios {
         this.apellido2 = apellido2; 
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getDniNie() { 
         return dniNie; 
     }

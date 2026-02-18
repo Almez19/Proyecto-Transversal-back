@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.BackBasiFit.entity.Reservas;
 import com.BackBasiFit.service.ReservasService;
 
@@ -30,6 +32,7 @@ public class ReservasController {
     }
 
     // GET reservas
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @GetMapping
     public List<Reservas> getAll(@RequestParam(required = false) String clienteId, @RequestParam(required = false) String claseId, @RequestParam(required = false, defaultValue = "false") boolean soloActivas) {
         // GET reservas por id cliente
@@ -47,6 +50,7 @@ public class ReservasController {
     }
 
     // GET por id
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @GetMapping("/{id}")
     public Reservas getById(@PathVariable String id) {
 
@@ -54,6 +58,7 @@ public class ReservasController {
     }
 
     // POST crear reservas
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0.clienteId))")
     @PostMapping
     public ResponseEntity<Reservas> create(@RequestBody Reservas reserva) {
         Reservas reservaGuardada = reservasService.save(reserva);
@@ -82,6 +87,7 @@ public class ReservasController {
     }
 
     // PUT cancelar reserva
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esReservaDeMiCliente(#p0))")
     @PutMapping("/{id}/cancelar")
     public Reservas cancelar(@PathVariable String id) {
 

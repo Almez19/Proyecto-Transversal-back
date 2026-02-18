@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.BackBasiFit.entity.Clientes;
 import com.BackBasiFit.entity.Membresias;
 import com.BackBasiFit.entity.Reservas;
@@ -40,6 +42,7 @@ public class ClientesController {
     }
 
     // GET todos los clientes
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @GetMapping
     public List<Clientes> getAll() {
 
@@ -47,6 +50,7 @@ public class ClientesController {
     }
 
     // GET cliente por id
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0))")
     @GetMapping("/{id}")
     public Clientes getById(@PathVariable String id) {
 
@@ -54,12 +58,14 @@ public class ClientesController {
     }
 
     //GET 5 clientes abonados
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @GetMapping("/numeroclientes")
     public List<Clientes> numeroclientesClientes() {
          return clientesService.findTop5ByOrderByEstadoDesc();
     }
 
     // POST crear cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @PostMapping
     public ResponseEntity<Clientes> create(@RequestBody Clientes cliente) {
         Clientes clienteGuardado = clientesService.save(cliente);
@@ -69,6 +75,7 @@ public class ClientesController {
     }
 
     // PUT actualizar datos
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @PutMapping("/{id}")
     public Clientes update(@PathVariable String id, @RequestBody Clientes clienteActualizado) {
         Clientes clienteExistente = clientesService.findById(id);
@@ -83,6 +90,7 @@ public class ClientesController {
     }
 
     // PUT activar cuenta de cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @PutMapping("/{id}/activar")
     public Clientes activar(@PathVariable String id) {
         Clientes clienteExistente = clientesService.findById(id);
@@ -92,6 +100,7 @@ public class ClientesController {
     }
 
     // PUT desactivar cuenta de cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @PutMapping("/{id}/desactivar")
     public Clientes desactivar(@PathVariable String id) {
         Clientes clienteExistente = clientesService.findById(id);
@@ -101,6 +110,7 @@ public class ClientesController {
     }
 
     // DELEETE eliminar cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         clientesService.delete(id);
@@ -109,6 +119,7 @@ public class ClientesController {
     }
 
     // GET reservas de un cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0))")
     @GetMapping("/{id}/reservas")
     public List<Reservas> reservasDeCliente(@PathVariable String id) {
 
@@ -116,6 +127,7 @@ public class ClientesController {
     }
 
     // GET membresas de un cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0))")
     @GetMapping("/{id}/membresias")
     public List<Membresias> membresiasDeCliente(@PathVariable String id) {
 
@@ -123,6 +135,7 @@ public class ClientesController {
     }
 
     // GET rutinas del cliente
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO') or (hasRole('CLIENTE') and @securityUtil.esMiIdCliente(#p0))")
     @GetMapping("/{id}/rutinas")
     public List<Rutinas> rutinasDeCliente(@PathVariable String id) {
         

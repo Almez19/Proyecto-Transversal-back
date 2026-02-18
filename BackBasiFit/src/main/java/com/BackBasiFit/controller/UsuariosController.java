@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.BackBasiFit.enums.Rol;
 
@@ -21,6 +23,7 @@ import com.BackBasiFit.service.UsuariosService;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@PreAuthorize("hasRole('ADMIN')")
 public class UsuariosController {
 
     private final UsuariosService usuariosService;

@@ -9,4 +9,5 @@ import com.BackBasiFit.entity.Clientes;
 public interface ClientesRepository extends JpaRepository<Clientes, String> {
     List<Clientes> findTop5ByOrderByEstadoDesc();
     Optional<Clientes> findByDniNie(String dniNie);
+    Optional<Clientes> findByEmail(String email);
 }
