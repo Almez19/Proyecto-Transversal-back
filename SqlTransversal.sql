@@ -6,6 +6,7 @@ use pr_transversal;
 create table Gimnasios(
 	id CHAR(36) PRIMARY KEY, -- UUID
     ubicacion varchar (150) NOT NULL UNIQUE,
+    URLimagen TEXT,
     ciudad varchar (30) NOT NULL,
 	nombre varchar(50) NOT NULL,
 	estado boolean NOT NULL DEFAULT TRUE
@@ -128,10 +129,10 @@ create table ejercicios (
 
 
 -- Gimnasios
-INSERT INTO Gimnasios (id, ubicacion, ciudad, nombre, estado) VALUES
-('11111111-1111-1111-1111-111111111111', 'Calle de Atocha 98', 'Madrid', 'BasiFit Atocha', TRUE),
-('22222222-2222-2222-2222-222222222222', 'Carrer de Mallorca 401', 'Barcelona', 'BasiFit Sagrada Família', TRUE),
-('33333333-3333-3333-3333-333333333333', 'C/ de San Vicente Mártir 82', 'Valencia', 'BasiFit Valencia Centro', TRUE);
+INSERT INTO Gimnasios (id, ubicacion, URLimagen, ciudad, nombre, estado) VALUES
+('11111111-1111-1111-1111-111111111111', 'Calle de Atocha 98', 'https://gymfactory.net/wp-content/uploads/2024/12/Basic-Fit.jpg' ,'Madrid', 'BasiFit Atocha', TRUE),
+('22222222-2222-2222-2222-222222222222', 'Carrer de Mallorca 401','https://www.regiondigital.com/m/p/745x450/media/files/185822_basicfitmerida-3.jpg','Barcelona', 'BasiFit Sagrada Família', TRUE),
+('33333333-3333-3333-3333-333333333333', 'C/ de San Vicente Mártir 82','https://www.vksport.eu/wp-content/uploads/2023/10/2022-11-21-scaled.jpg','Valencia', 'BasiFit Valencia Centro', TRUE);
 
 -- Usuarios 
 INSERT INTO usuarios (id, nombre, apellido1, apellido2, email, DNI_NIE, contrasena, ROL, gimnasio_id, estado) VALUES
@@ -158,21 +159,21 @@ INSERT INTO noticias (id, titulo, cuerpo, urlImagen, fecha, gimnasio_id) VALUES
 ('c1c1c1c1-cccc-cccc-cccc-ccccccccccc1',
  'Nueva zona de fuerza y peso libre',
  '¡Ya está abierta la nueva zona de fuerza! Hemos añadido bancos ajustables, mancuernas hasta 40kg y más espacio para trabajo con barra. Recuerda recoger el material al terminar.',
- 'https://images.com',
+ 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe_4MzcQxvdOQYf8lyAVeK7lZ7GO04xCFTNw&s',
  '2026-02-05 09:30:00',
  '11111111-1111-1111-1111-111111111111'),
 
 ('c2c2c2c2-cccc-cccc-cccc-ccccccccccc2',
  'Yoga express al mediodía',
  'Nueva clase de Yoga express a las 12:00 (45 min). Ideal si entrenas en la pausa del trabajo. Reserva desde la app y llega 5 minutos antes para preparar material.',
- 'https://images.com',
+ 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv5UAbzZr_hAQJgEvFdWhxF-MZRVc1RYFsSQ&s',
  '2026-02-06 12:15:00',
  '22222222-2222-2222-2222-222222222222'),
 
 ('c3c3c3c3-cccc-cccc-cccc-ccccccccccc3',
  'Mantenimiento de cardio (sábado)',
  'Este sábado de 07:00 a 09:00 h realizaremos mantenimiento preventivo en varias máquinas de cardio. Gracias por tu comprensión; el resto de zonas funcionarán con normalidad.',
- 'https://images.com',
+ 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrDSOKfCGJm-ms3NPVSC3L6N20K0a5B5HUdA&s%27',
  '2026-02-07 18:00:00',
  '33333333-3333-3333-3333-333333333333');
 
