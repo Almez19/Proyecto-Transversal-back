@@ -18,6 +18,9 @@ public class Gimnasios {
     @Column(nullable = false, unique = true, length = 150)
     private String ubicacion;
 
+    @Column(nullable = false)
+    private String UrlImagen;
+
     @Column(nullable = false, length = 30)
     private String ciudad;
 
@@ -65,5 +68,13 @@ public class Gimnasios {
 
     public void setEstado(Boolean estado) { 
         this.estado = estado; 
+    }
+
+    public String getUrlImagen() {
+        return UrlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        UrlImagen = urlImagen;
     }
 }
