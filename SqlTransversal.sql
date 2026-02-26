@@ -132,7 +132,18 @@ create table ejercicios (
 INSERT INTO Gimnasios (id, ubicacion, URLimagen, ciudad, nombre, estado) VALUES
 ('11111111-1111-1111-1111-111111111111', 'Calle de Atocha 98', 'https://gymfactory.net/wp-content/uploads/2024/12/Basic-Fit.jpg' ,'Madrid', 'BasiFit Atocha', TRUE),
 ('22222222-2222-2222-2222-222222222222', 'Carrer de Mallorca 401','https://www.regiondigital.com/m/p/745x450/media/files/185822_basicfitmerida-3.jpg','Barcelona', 'BasiFit Sagrada Família', TRUE),
-('33333333-3333-3333-3333-333333333333', 'C/ de San Vicente Mártir 82','https://www.vksport.eu/wp-content/uploads/2023/10/2022-11-21-scaled.jpg','Valencia', 'BasiFit Valencia Centro', TRUE);
+('33333333-3333-3333-3333-333333333333', 'C/ de San Vicente Mártir 82','https://www.vksport.eu/wp-content/uploads/2023/10/2022-11-21-scaled.jpg','Valencia', 'BasiFit Valencia Centro', TRUE),
+('44444444-4444-4444-4444-444444444444', 'Avenida de la Constitución 15', 'https://www.basic-fit.com/on/demandware.static/-/Library-Sites-basic-fit-shared-library/default/dwe3bd8a27/Club%20page%20website-BasicFit%20Tilburg%2026-8-2113386.jpeg', 'Sevilla', 'BasiFit Sevilla Centro', TRUE),
+('55555555-5555-5555-5555-555555555555', 'Gran Vía 23', 'https://pcvegadelrey.com/storage/2021/11/Basic-Fit_VegadelRey_1.jpg', 'Bilbao', 'BasiFit Bilbao Gran Vía', FALSE),
+('66666666-6666-6666-6666-666666666666', 'Calle Mayor 45', 'https://brand.basic-fit.com/match/KP_Number/5285/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Zaragoza', 'BasiFit Zaragoza Centro', TRUE),
+('77777777-7777-7777-7777-777777777777', 'Avenida de la Libertad 8', 'https://corporate.basic-fit.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fn2vcrsstbkc9%2F4JoY83X4htHay68W6XAlWy%2Fc7cc486be52dcabf9f269789da3c60be%2FTilburg_facade.jpg%3Fq%3D90%26fm%3Dwebp&w=2048&q=75', 'Málaga', 'BasiFit Málaga Norte', FALSE),
+('88888888-8888-8888-8888-888888888888', 'Calle Uría 12', 'https://brand.basic-fit.com/match/KP_Number/5208/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Santander', 'BasiFit Oviedo Centro', TRUE),
+('99999999-9999-9999-9999-999999999999', 'Paseo de Zorrilla 101', 'https://brand.basic-fit.com/match/KP_Number/5051/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Valladolid', 'BasiFit Valladolid Sur', TRUE),
+('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Avenida Juan Carlos I 54', 'https://brand.basic-fit.com/match/KP_Number/5517/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:600', 'Murcia', 'BasiFit Murcia Centro', FALSE),
+('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Calle Colón 7', 'https://brand.basic-fit.com/match/KP_Number/5303/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:600', 'Alicante', 'BasiFit Alicante Playa', TRUE),
+('cccccccc-cccc-cccc-cccc-cccccccccccc', 'Rúa do Hórreo 110', 'https://brand.basic-fit.com/match/KP_Number/5521/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:600', 'Santiago de Compostela', 'BasiFit Santiago Centro', TRUE),
+('dddddddd-dddd-dddd-dddd-dddddddddddd', 'Calle León y Castillo 200', 'https://brand.basic-fit.com/match/KP_Number/5114/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:600', 'Las Palmas', 'BasiFit Las Palmas', FALSE);
+
 
 -- Usuarios 
 INSERT INTO usuarios (id, nombre, apellido1, apellido2, email, DNI_NIE, contrasena, ROL, gimnasio_id, estado) VALUES
@@ -158,24 +169,36 @@ INSERT INTO clientes (id, nombre, apellido1, apellido2, email, DNI_NIE, contrase
 INSERT INTO noticias (id, titulo, cuerpo, urlImagen, fecha, gimnasio_id) VALUES
 ('c1c1c1c1-cccc-cccc-cccc-ccccccccccc1',
  'Nueva zona de fuerza y peso libre',
- '¡Ya está abierta la nueva zona de fuerza! Hemos añadido bancos ajustables, mancuernas hasta 40kg y más espacio para trabajo con barra. Recuerda recoger el material al terminar.',
- 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe_4MzcQxvdOQYf8lyAVeK7lZ7GO04xCFTNw&s',
+ '¡Ya está abierta la nueva zona de fuerza! Hemos ampliado el espacio destinado al entrenamiento con peso libre para que puedas entrenar con mayor comodidad y seguridad. Ahora disponemos de nuevos bancos ajustables, mancuernas hasta 40 kg, discos olímpicos adicionales y más jaulas para sentadilla. Además, se ha mejorado la ventilación de la sala y la iluminación para un entorno más agradable. Recuerda colocar el material en su sitio al terminar y respetar los turnos en horas punta.',
+ 'https://www.basic-fit.com/dw/image/v2/BDFP_PRD/on/demandware.static/-/Sites-master-catalog/default/dw7379b3ac/images/ClubsES/2023/alcorc%C3%B3n_extra.jpg?q=100',
  '2026-02-05 09:30:00',
  '11111111-1111-1111-1111-111111111111'),
-
 ('c2c2c2c2-cccc-cccc-cccc-ccccccccccc2',
  'Yoga express al mediodía',
- 'Nueva clase de Yoga express a las 12:00 (45 min). Ideal si entrenas en la pausa del trabajo. Reserva desde la app y llega 5 minutos antes para preparar material.',
- 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv5UAbzZr_hAQJgEvFdWhxF-MZRVc1RYFsSQ&s',
+ 'Incorporamos una nueva clase de Yoga Express a las 12:00 h con una duración de 45 minutos, pensada especialmente para quienes entrenan durante la pausa del trabajo. Esta sesión combina movilidad, respiración y estiramientos dinámicos para ayudarte a liberar tensión y mejorar tu postura. Las plazas son limitadas, por lo que recomendamos reservar desde la app con antelación. Llega 5 minutos antes para preparar tu esterilla y comenzar puntualmente.',
+ 'https://images.ctfassets.net/ztnn01luatek/2mkRC2FYL2T0mWws2mYcxl/3663873c0b123ada46941eb989da5f8e/webimage-Basicfit-groepslessen-20-10-2514147.png',
  '2026-02-06 12:15:00',
  '22222222-2222-2222-2222-222222222222'),
-
 ('c3c3c3c3-cccc-cccc-cccc-ccccccccccc3',
  'Mantenimiento de cardio (sábado)',
- 'Este sábado de 07:00 a 09:00 h realizaremos mantenimiento preventivo en varias máquinas de cardio. Gracias por tu comprensión; el resto de zonas funcionarán con normalidad.',
- 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrDSOKfCGJm-ms3NPVSC3L6N20K0a5B5HUdA&s%27',
+ 'Este sábado realizaremos tareas de mantenimiento preventivo en varias máquinas de la zona de cardio entre las 07:00 y las 09:00 h. Durante este tiempo algunas cintas y bicicletas podrán estar temporalmente fuera de servicio. Estas revisiones son fundamentales para garantizar tu seguridad y el correcto funcionamiento del equipamiento. El resto de instalaciones permanecerán abiertas con normalidad. Gracias por tu comprensión.',
+ 'https://palco23.mundodeportivo.com/thumb/eyJ0IjoiZCIsInciOjEyMDAsImgiOjY3NSwibSI6MSwidiI6IjEuMC4xIn0/palco23/files/2025/19-fitness/basic-fit/basic-fit-lateral-1200.png',
  '2026-02-07 18:00:00',
- '33333333-3333-3333-3333-333333333333');
+ '33333333-3333-3333-3333-333333333333'),
+ ('c4c4c4c4-cccc-cccc-cccc-ccccccccccc4',
+ 'Nueva clase de HIIT avanzada',
+ 'A partir de la próxima semana estrenamos una nueva clase de HIIT avanzada dirigida a socios que ya tengan experiencia en entrenamiento de alta intensidad. La sesión combina intervalos de fuerza y cardio con tiempos de recuperación controlados para maximizar el rendimiento. Se recomienda traer toalla y botella de agua. Consulta los horarios disponibles en la app o en recepción.',
+ 'https://www.basic-fit.com/on/demandware.static/-/Library-Sites-basic-fit-shared-library/default/dwc76eb19a/Blogs/New%20fitness%20routine/Landscape-Basicfit%20Hometools%2018%20mei%20204277.jpg',
+ '2026-02-08 17:30:00',
+ '44444444-4444-4444-4444-444444444444'),
+
+('c5c5c5c5-cccc-cccc-cccc-ccccccccccc5',
+ 'Ampliación de horario en fin de semana',
+ 'A partir del próximo mes ampliaremos nuestro horario de fin de semana para adaptarnos mejor a vuestros entrenamientos. Los sábados abriremos desde las 07:00 hasta las 22:00 h y los domingos de 08:00 a 20:00 h. Queremos ofrecer mayor flexibilidad para que puedas organizar tu rutina sin prisas y evitar aglomeraciones en horas punta. Seguimos trabajando para mejorar tu experiencia en el gimnasio.',
+ 'https://www.basic-fit.com/dw/image/v2/BDFP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwec7d375b/images/ClubsES/2024/molinadesegura_entrada.jpeg?q=100',
+ '2026-02-09 08:45:00',
+ '55555555-5555-5555-5555-555555555555');
+
 
 -- Salas
 INSERT INTO salas (id, numero_sala, gimnasio_id_s) VALUES
