@@ -200,6 +200,8 @@ INSERT INTO noticias (id, titulo, cuerpo, urlImagen, fecha, gimnasio_id) VALUES
  '55555555-5555-5555-5555-555555555555');
 
 
+
+
 -- Salas
 INSERT INTO salas (id, numero_sala, gimnasio_id_s) VALUES
 ('d1d1d1d1-dddd-dddd-dddd-ddddddddddd1', 1, '11111111-1111-1111-1111-111111111111'),
