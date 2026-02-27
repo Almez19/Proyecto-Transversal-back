@@ -137,7 +137,7 @@ INSERT INTO Gimnasios (id, ubicacion, URLimagen, ciudad, nombre, estado) VALUES
 ('55555555-5555-5555-5555-555555555555', 'Gran Vía 23', 'https://pcvegadelrey.com/storage/2021/11/Basic-Fit_VegadelRey_1.jpg', 'Bilbao', 'BasiFit Bilbao Gran Vía', FALSE),
 ('66666666-6666-6666-6666-666666666666', 'Calle Mayor 45', 'https://brand.basic-fit.com/match/KP_Number/5285/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Zaragoza', 'BasiFit Zaragoza Centro', TRUE),
 ('77777777-7777-7777-7777-777777777777', 'Avenida de la Libertad 8', 'https://corporate.basic-fit.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fn2vcrsstbkc9%2F4JoY83X4htHay68W6XAlWy%2Fc7cc486be52dcabf9f269789da3c60be%2FTilburg_facade.jpg%3Fq%3D90%26fm%3Dwebp&w=2048&q=75', 'Málaga', 'BasiFit Málaga Norte', FALSE),
-('88888888-8888-8888-8888-888888888888', 'Calle Uría 12', 'https://brand.basic-fit.com/match/KP_Number/5208/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Santander', 'BasiFit Oviedo Centro', TRUE),
+('88888888-8888-8888-8888-888888888888', 'Calle Uría 12', 'https://brand.basic-fit.com/match/KP_Number/5208/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Santander', 'BasiFit Santander Centro', TRUE),
 ('99999999-9999-9999-9999-999999999999', 'Paseo de Zorrilla 101', 'https://brand.basic-fit.com/match/KP_Number/5051/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:550', 'Valladolid', 'BasiFit Valladolid Sur', TRUE),
 ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'Avenida Juan Carlos I 54', 'https://brand.basic-fit.com/match/KP_Number/5517/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:600', 'Murcia', 'BasiFit Murcia Centro', FALSE),
 ('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'Calle Colón 7', 'https://brand.basic-fit.com/match/KP_Number/5303/Club_area/Front_club_outside/Front_club_outside?io=transform:fit,width:600', 'Alicante', 'BasiFit Alicante Playa', TRUE),
@@ -198,6 +198,64 @@ INSERT INTO noticias (id, titulo, cuerpo, urlImagen, fecha, gimnasio_id) VALUES
  'https://www.basic-fit.com/dw/image/v2/BDFP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwec7d375b/images/ClubsES/2024/molinadesegura_entrada.jpeg?q=100',
  '2026-02-09 08:45:00',
  '55555555-5555-5555-5555-555555555555');
+
+INSERT INTO noticias (id, titulo, cuerpo, urlImagen, fecha, gimnasio_id) VALUES
+
+('c6c6c6c6-cccc-cccc-cccc-cccccccccc6',
+ 'Renovación de vestuarios',
+ 'Nos complace anunciar que hemos completado la renovación integral de los vestuarios. Se han instalado nuevas taquillas con cierre digital, duchas con agua caliente mejorada y secadores de pelo en todos los puntos. El suelo antideslizante nuevo garantiza mayor seguridad. También se ha ampliado la zona de bancos para que puedas cambiarte con mayor comodidad. Esperamos que disfrutes de estas mejoras tanto como nosotros hemos disfrutado haciéndolas realidad.',
+ 'https://www.basic-fit.com/dw/image/v2/BDFP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwec7d375b/images/ClubsES/2024/molinadesegura_entrada.jpeg?q=100',
+ '2026-02-10 10:00:00',
+ '66666666-6666-6666-6666-666666666666'),
+
+('c7c7c7c7-cccc-cccc-cccc-cccccccccc7',
+ 'Nuevo reto mensual: 30 días de constancia',
+ 'Lanzamos nuestro primer reto mensual para todos los socios. Durante 30 días consecutivos, cada visita al gimnasio sumará puntos que podrás canjear por descuentos en tu próxima membresía. Además, los 3 socios más constantes recibirán un mes gratis. Regístrate en recepción o desde la app antes del día 15. Las reglas completas están disponibles en el tablón de anuncios y en nuestra web. ¡Anímate y demuestra tu constancia!',
+ 'https://www.basic-fit.com/on/demandware.static/-/Library-Sites-basic-fit-shared-library/default/dwc76eb19a/Blogs/New%20fitness%20routine/Landscape-Basicfit%20Hometools%2018%20mei%20204277.jpg',
+ '2026-02-11 09:00:00',
+ '77777777-7777-7777-7777-777777777777'),
+
+('c8c8c8c8-cccc-cccc-cccc-cccccccccc8',
+ 'Clases de boxeo fitness para principiantes',
+ 'Incorporamos al horario semanal clases de boxeo fitness orientadas a personas sin experiencia previa. Esta disciplina combina técnica de boxeo con cardio intenso, mejorando la coordinación, la resistencia y la confianza en uno mismo. Las sesiones duran 50 minutos y están impartidas por un entrenador certificado. Se proporcionan guantes y vendas en recepción. Los martes y jueves a las 19:30 h. Plazas limitadas, reserva desde la app.',
+ 'https://images.ctfassets.net/ztnn01luatek/2mkRC2FYL2T0mWws2mYcxl/3663873c0b123ada46941eb989da5f8e/webimage-Basicfit-groepslessen-20-10-2514147.png',
+ '2026-02-12 11:30:00',
+ '88888888-8888-8888-8888-888888888888'),
+
+('c9c9c9c9-cccc-cccc-cccc-cccccccccc9',
+ 'Actualización de la app BasiFit',
+ 'Hemos lanzado una nueva versión de nuestra aplicación con importantes mejoras. Ahora podrás ver en tiempo real la ocupación del gimnasio antes de salir de casa, reservar clases con un solo toque y recibir notificaciones personalizadas sobre tus entrenamientos. También se ha rediseñado la sección de rutinas para que sea más intuitiva. Actualiza desde la App Store o Google Play y cuéntanos qué te parece en recepción o en nuestras redes sociales.',
+ 'https://palco23.mundodeportivo.com/thumb/eyJ0IjoiZCIsInciOjEyMDAsImgiOjY3NSwibSI6MSwidiI6IjEuMC4xIn0/palco23/files/2025/19-fitness/basic-fit/basic-fit-lateral-1200.png',
+ '2026-02-13 16:00:00',
+ '99999999-9999-9999-9999-999999999999'),
+
+('cacacacac-cccc-cccc-cccc-cccccccccca',
+ 'Taller de nutrición deportiva gratuito',
+ 'El próximo viernes 20 de febrero organizamos un taller gratuito de nutrición deportiva impartido por una dietista-nutricionista colegiada. Se abordarán temas como la importancia del desayuno antes del entrenamiento, la recuperación muscular con alimentación y cómo organizar tus comidas semanales sin complicarte. El aforo es limitado a 20 personas. Inscríbete en recepción indicando tu nombre y número de socio antes del miércoles 18.',
+ 'https://gymfactory.net/wp-content/uploads/2024/12/Basic-Fit.jpg',
+ '2026-02-14 08:30:00',
+ 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'),
+
+('cbcbcbcb-cccc-cccc-cccc-cccccccccccb',
+ 'Nueva zona de estiramiento y movilidad',
+ 'Hemos habilitado una zona exclusiva para estiramientos y trabajo de movilidad equipada con colchonetas, rodillos de foam, bandas elásticas y bloques de yoga. Este espacio está disponible durante todo el horario de apertura sin necesidad de reserva previa. Te recomendamos dedicar al menos 10 minutos al final de cada sesión para reducir el riesgo de lesiones y mejorar tu flexibilidad progresivamente. Consulta con nuestros entrenadores si necesitas orientación sobre rutinas de movilidad.',
+ 'https://www.basic-fit.com/on/demandware.static/-/Library-Sites-basic-fit-shared-library/default/dw3c383df2/BasicFit%20Tilburg%2026-8-2114144%20(1).jpg',
+ '2026-02-15 13:00:00',
+ 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb'),
+
+('cccccccc-1111-cccc-cccc-ccccccccccc',
+ 'Incorporación de nuevo entrenador personal',
+ 'Nos alegra presentar a Carlos Mendoza, nuestro nuevo entrenador personal especializado en pérdida de peso y rehabilitación postural. Carlos cuenta con más de 8 años de experiencia trabajando con todo tipo de perfiles, desde atletas hasta personas que se inician por primera vez en el gimnasio. Si estás interesado en sesiones de entrenamiento personalizado, pásate por recepción o contacta directamente con él a través de la app. La primera sesión de valoración es completamente gratuita.',
+ 'https://www.soydemadrid.com/images/thumbs/basic-fit-abre-un-nuevo-gym-en-alcorcon-0102808_1200.jpeg',
+ '2026-02-16 10:00:00',
+ 'cccccccc-cccc-cccc-cccc-cccccccccccc'),
+
+('cdcdcdcd-cccc-cccc-cccc-ccccccccccd',
+ 'Mantenimiento general del 20 al 21 de febrero',
+ 'Os informamos que los días 20 y 21 de febrero realizaremos un mantenimiento general de las instalaciones. Durante estos dos días el gimnasio permanecerá cerrado para poder revisar toda la maquinaria, renovar el sistema de climatización y realizar la limpieza profunda anual. Pedimos disculpas por las molestias ocasionadas. A partir del 22 de febrero abriremos con el horario habitual y con las instalaciones al 100%. Gracias por vuestra comprensión y fidelidad.',
+ 'https://www.vksport.eu/wp-content/uploads/2023/10/2022-11-21-scaled.jpg',
+ '2026-02-17 09:00:00',
+ 'dddddddd-dddd-dddd-dddd-dddddddddddd');
 
 
 
