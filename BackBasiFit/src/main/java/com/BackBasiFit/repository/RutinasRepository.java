@@ -7,6 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.BackBasiFit.entity.Rutinas;
 
 public interface RutinasRepository extends JpaRepository<Rutinas, String> {
+
     List<Rutinas> findByClienteId(String clienteId);
-    List<Rutinas> findTop5ByOrderByIdDesc();
+
+    List<Rutinas> findByClienteIdOrderByFechaActualizacionDesc(String clienteId);
+
+    List<Rutinas> findTop5ByOrderByFechaCreacionDesc();
 }

@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,13 +14,13 @@ public class Gimnasios {
 
     @Id
     @Column(length = 36)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @Column(nullable = false, unique = true, length = 150)
     private String ubicacion;
 
-    @Column(nullable = false)
-    private String UrlImagen;
+    @Column(name = "url_imagen")
+    private String urlImagen;
 
     @Column(nullable = false, length = 30)
     private String ciudad;
@@ -30,51 +31,58 @@ public class Gimnasios {
     @Column(nullable = false)
     private Boolean estado = true;
 
-    public String getId() { 
-        return id; 
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null || this.id.isBlank()) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
-    public void setId(String id) { 
-        this.id = id; 
+    public String getId() {
+        return id;
     }
 
-    public String getUbicacion() { 
-        return ubicacion; 
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setUbicacion(String ubicacion) { 
-        this.ubicacion = ubicacion; 
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public String getCiudad() { 
-        return ciudad; 
-    }
-
-    public void setCiudad(String ciudad) { 
-        this.ciudad = ciudad; 
-    }
-
-    public String getNombre() { 
-        return nombre; 
-    }
-
-    public void setNombre(String nombre) { 
-        this.nombre = nombre; 
-    }
-
-    public Boolean getEstado() { 
-        return estado; 
-    }
-
-    public void setEstado(Boolean estado) { 
-        this.estado = estado; 
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public String getUrlImagen() {
-        return UrlImagen;
+        return urlImagen;
     }
 
     public void setUrlImagen(String urlImagen) {
-        UrlImagen = urlImagen;
+        this.urlImagen = urlImagen;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 }

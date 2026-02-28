@@ -6,6 +6,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,15 +15,15 @@ public class Noticias {
 
     @Id
     @Column(length = 36)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 80)
     private String titulo;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String cuerpo;
 
-    @Column(name = "urlImagen", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "url_imagen", nullable = false, columnDefinition = "TEXT")
     private String urlImagen;
 
     @Column(nullable = false)
@@ -31,51 +32,58 @@ public class Noticias {
     @Column(name = "gimnasio_id", length = 36)
     private String gimnasioId;
 
-    public String getId() { 
-        return id; 
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null || this.id.isBlank()) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
-    public void setId(String id) { 
-        this.id = id; 
+    public String getId() {
+        return id;
     }
 
-    public String getTitulo() { 
-        return titulo; 
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setTitulo(String titulo) { 
-        this.titulo = titulo; 
+    public String getTitulo() {
+        return titulo;
     }
 
-    public String getCuerpo() { 
-        return cuerpo; 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public void setCuerpo(String cuerpo) { 
-        this.cuerpo = cuerpo; 
+    public String getCuerpo() {
+        return cuerpo;
     }
 
-    public String getUrlImagen() { 
-        return urlImagen; 
+    public void setCuerpo(String cuerpo) {
+        this.cuerpo = cuerpo;
     }
 
-    public void setUrlImagen(String urlImagen) { 
-        this.urlImagen = urlImagen; 
+    public String getUrlImagen() {
+        return urlImagen;
     }
 
-    public LocalDateTime getFecha() { 
-        return fecha; 
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
-    public void setFecha(LocalDateTime fecha) { 
-        this.fecha = fecha; 
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 
-    public String getGimnasioId() { 
-        return gimnasioId; 
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
-    public void setGimnasioId(String gimnasioId) { 
-        this.gimnasioId = gimnasioId; 
+    public String getGimnasioId() {
+        return gimnasioId;
+    }
+
+    public void setGimnasioId(String gimnasioId) {
+        this.gimnasioId = gimnasioId;
     }
 }

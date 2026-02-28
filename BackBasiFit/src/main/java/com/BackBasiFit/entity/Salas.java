@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,35 +14,64 @@ public class Salas {
 
     @Id
     @Column(length = 36)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @Column(name = "numero_sala", nullable = false)
     private Integer numeroSala;
 
-    @Column(name = "gimnasio_id_s", nullable = false, length = 36)
+    @Column(name = "gimnasio_id", nullable = false, length = 36)
     private String gimnasioId;
 
-    public String getId() { 
-        return id; 
+    @Column(length = 60)
+    private String nombre;
+
+    @Column(nullable = false)
+    private Boolean estado = true;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null || this.id.isBlank()) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
-    public void setId(String id) { 
-        this.id = id; 
+    public String getId() {
+        return id;
     }
 
-    public Integer getNumeroSala() { 
-        return numeroSala; 
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setNumeroSala(Integer numeroSala) { 
-        this.numeroSala = numeroSala; 
+    public Integer getNumeroSala() {
+        return numeroSala;
     }
 
-    public String getGimnasioId() { 
-        return gimnasioId; 
+    public void setNumeroSala(Integer numeroSala) {
+        this.numeroSala = numeroSala;
     }
 
-    public void setGimnasioId(String gimnasioId) { 
-        this.gimnasioId = gimnasioId; 
+    public String getGimnasioId() {
+        return gimnasioId;
+    }
+
+    public void setGimnasioId(String gimnasioId) {
+        this.gimnasioId = gimnasioId;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 }

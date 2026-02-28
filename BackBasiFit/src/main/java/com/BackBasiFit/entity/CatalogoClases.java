@@ -2,7 +2,7 @@ package com.BackBasiFit.entity;
 
 import java.util.UUID;
 
-import com.BackBasiFit.enums.GrupoMuscular;
+import com.BackBasiFit.enums.Nivel;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,31 +13,28 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "maquinas")
-public class Maquinas {
+@Table(name = "catalogo_clases")
+public class CatalogoClases {
 
     @Id
     @Column(length = 36)
     private String id;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, unique = true, length = 60)
     private String nombre;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = false, length = 255)
     private String descripcion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nivel_recomendado", nullable = false)
+    private Nivel nivelRecomendado = Nivel.principiante;
 
     @Column(name = "url_imagen", columnDefinition = "TEXT")
     private String urlImagen;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "grupo_muscular", nullable = false)
-    private GrupoMuscular grupoMuscular = GrupoMuscular.cuerpo_completo;
-
     @Column(nullable = false)
     private Boolean estado = true;
-
-    @Column(name = "gimnasio_id", nullable = false, length = 36)
-    private String gimnasioId;
 
     @PrePersist
     public void prePersist() {
@@ -70,6 +67,14 @@ public class Maquinas {
         this.descripcion = descripcion;
     }
 
+    public Nivel getNivelRecomendado() {
+        return nivelRecomendado;
+    }
+
+    public void setNivelRecomendado(Nivel nivelRecomendado) {
+        this.nivelRecomendado = nivelRecomendado;
+    }
+
     public String getUrlImagen() {
         return urlImagen;
     }
@@ -78,27 +83,11 @@ public class Maquinas {
         this.urlImagen = urlImagen;
     }
 
-    public GrupoMuscular getGrupoMuscular() {
-        return grupoMuscular;
-    }
-
-    public void setGrupoMuscular(GrupoMuscular grupoMuscular) {
-        this.grupoMuscular = grupoMuscular;
-    }
-
     public Boolean getEstado() {
         return estado;
     }
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
-    }
-
-    public String getGimnasioId() {
-        return gimnasioId;
-    }
-
-    public void setGimnasioId(String gimnasioId) {
-        this.gimnasioId = gimnasioId;
     }
 }

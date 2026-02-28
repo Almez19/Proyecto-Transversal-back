@@ -1,12 +1,12 @@
 package com.BackBasiFit.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
-import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -38,7 +39,13 @@ public class GimnasiosController {
     private final NoticiaService noticiaService;
     private final ClasesService clasesService;
 
-    public GimnasiosController(GimnasiosService gimnasiosService, SalasService salasService, MaquinasService maquinasService, NoticiaService noticiaService, ClasesService clasesService) {
+    public GimnasiosController(
+            GimnasiosService gimnasiosService,
+            SalasService salasService,
+            MaquinasService maquinasService,
+            NoticiaService noticiaService,
+            ClasesService clasesService
+    ) {
         this.gimnasiosService = gimnasiosService;
         this.salasService = salasService;
         this.maquinasService = maquinasService;
@@ -46,36 +53,84 @@ public class GimnasiosController {
         this.clasesService = clasesService;
     }
 
+    // PRUBLICO
+
     // GET todos los gimnasios
     @GetMapping
     public List<Gimnasios> getAll() {
-
         return gimnasiosService.findAll();
     }
 
     // GET gimnasio por id
     @GetMapping("/{id}")
     public Gimnasios getById(@PathVariable String id) {
-
         return gimnasiosService.findById(id);
     }
 
+    // Máquinas públicas (catálogo del gimnasio)
+    @GetMapping("/{id}/maquinas")
+    public List<Maquinas> maquinas(@PathVariable String id) {
+        return maquinasService.findByGimnasio(id);
+    }
+
+    // Noticias públicas
+    @GetMapping("/{id}/noticias")
+    public List<Noticias> noticias(@PathVariable String id) {
+        return noticiaService.findByGimnasioId(id);
+    }
+
+    // Catálogo de clases por gimnasio (público, SIN horarios)
+    @GetMapping("/{id}/catalogo-clases")
+    public List<String> catalogoClasesPorGimnasio(@PathVariable String id) {
+        return clasesService.obtenerNombresCatalogoPorGimnasio(id);
+    }
+
+    // PRIVADO
+
+    // GET salas
+    @GetMapping("/{id}/salas")
+    @PreAuthorize("isAuthenticated()")
+    public List<Salas> salas(@PathVariable String id) {
+        return salasService.findByGimnasio(id);
+    }
+
+    // GET clases
+    @GetMapping("/{id}/clases")
+    @PreAuthorize("isAuthenticated()")
+    public List<Clases> clasesDeGimnasio(
+            @PathVariable String id,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha
+    ) {
+        if (fecha != null) {
+            return clasesService.findByGimnasioAndFecha(id, fecha);
+        }
+        return clasesService.findByGimnasio(id);
+    }
+
+    // ADMINISTRACION
+
     // POST crear gimnasio
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Gimnasios> create(@RequestBody Gimnasios gimnasio) {
         Gimnasios gimnasioGuardado = gimnasiosService.save(gimnasio);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(gimnasioGuardado.getId()).toUri();
-        
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(gimnasioGuardado.getId())
+                .toUri();
+
         return ResponseEntity.created(location).body(gimnasioGuardado);
     }
 
     // PUT actualizar datos
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public Gimnasios update(@PathVariable String id, @RequestBody Gimnasios gimnasioActualizado) {
         Gimnasios gimnasioExistente = gimnasiosService.findById(id);
         gimnasioExistente.setUbicacion(gimnasioActualizado.getUbicacion());
         gimnasioExistente.setCiudad(gimnasioActualizado.getCiudad());
         gimnasioExistente.setNombre(gimnasioActualizado.getNombre());
+        gimnasioExistente.setUrlImagen(gimnasioActualizado.getUrlImagen());
         gimnasioExistente.setEstado(gimnasioActualizado.getEstado());
 
         return gimnasiosService.save(gimnasioExistente);
@@ -83,6 +138,7 @@ public class GimnasiosController {
 
     // PUT abrir gimnasio
     @PutMapping("/{id}/activar")
+    @PreAuthorize("hasRole('ADMIN')")
     public Gimnasios activar(@PathVariable String id) {
         Gimnasios gimnasioExistente = gimnasiosService.findById(id);
         gimnasioExistente.setEstado(true);
@@ -92,6 +148,7 @@ public class GimnasiosController {
 
     // PUT cerrar gimnasio
     @PutMapping("/{id}/desactivar")
+    @PreAuthorize("hasRole('ADMIN')")
     public Gimnasios desactivar(@PathVariable String id) {
         Gimnasios gimnasioExistente = gimnasiosService.findById(id);
         gimnasioExistente.setEstado(false);
@@ -101,51 +158,9 @@ public class GimnasiosController {
 
     // DELETE borrar gimnasio
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         gimnasiosService.delete(id);
-
         return ResponseEntity.noContent().build();
     }
-
-    // GET salas de un gimnasio
-    @GetMapping("/{id}/salas")
-    public List<Salas> salas(@PathVariable String id) {
-        
-        return salasService.findByGimnasio(id);
-    }
-
-    // GET maquinas de un gimnasio
-    @GetMapping("/{id}/maquinas")
-    public List<Maquinas> maquinas(@PathVariable String id) {
-
-        return maquinasService.findByGimnasio(id);
-    }
-
-    // GET noticias de un gimnasio
-    @GetMapping("/{id}/noticias")
-    public List<Noticias> noticias(@PathVariable String id) {
-
-        return noticiaService.findByGimnasioId(id);
-    }
-
-    // GET clases del gimnasio
-    @GetMapping("/{id}/clases")
-    public List<Clases> clasesDeGimnasio(@PathVariable String id, @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
-        List<Salas> salas = salasService.findByGimnasio(id);
-
-        return salas.stream().flatMap(s -> (fecha != null ? clasesService.findBySalaAndFecha(s.getId(), fecha): clasesService.findBySala(s.getId())).stream()).toList();
-    }
-
-    // GET numero especifco de gimnasios
-    @GetMapping("/numgimnasios")
-    public List<Gimnasios> numgimnasiosGimnasios() {
-         return gimnasiosService.findTop5ByOrderByIdDesc();
-    }
-
-    // GET 10 gimnasios abiertos
-    @GetMapping("/abiertos")
-    public List<Gimnasios> abiertosGimnasios() {
-         return gimnasiosService.findTop10ByOrderByEstadoDesc();
-    }
-
 }

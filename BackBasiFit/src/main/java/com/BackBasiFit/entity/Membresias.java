@@ -2,6 +2,7 @@ package com.BackBasiFit.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.BackBasiFit.enums.Calidad;
@@ -13,6 +14,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -21,7 +23,7 @@ public class Membresias {
 
     @Id
     @Column(length = 36)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_inicio", nullable = false)
@@ -48,67 +50,85 @@ public class Membresias {
     @Column(name = "cliente_id", nullable = false, length = 36)
     private String clienteId;
 
-    public String getId() { 
-        return id; 
+    @Column(name = "fecha_creacion", nullable = false, insertable = false, updatable = false)
+    private LocalDateTime fechaCreacion;
+
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null || this.id.isBlank()) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
-    public void setId(String id) { 
-        this.id = id; 
+    public String getId() {
+        return id;
     }
 
-    public LocalDate getFechaInicio() { 
-        return fechaInicio; 
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setFechaInicio(LocalDate fechaInicio) { 
-        this.fechaInicio = fechaInicio; 
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
     }
 
-    public LocalDate getFechaFinal() { 
-        return fechaFinal; 
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public void setFechaFinal(LocalDate fechaFinal) { 
-        this.fechaFinal = fechaFinal; 
+    public LocalDate getFechaFinal() {
+        return fechaFinal;
     }
 
-    public Boolean getEstado() { 
-        return estado; 
+    public void setFechaFinal(LocalDate fechaFinal) {
+        this.fechaFinal = fechaFinal;
     }
 
-    public void setEstado(Boolean estado) { 
-        this.estado = estado; 
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public Duracion getDuracion() { 
-        return duracion; 
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
-    public void setDuracion(Duracion duracion) { 
-        this.duracion = duracion; 
+    public Duracion getDuracion() {
+        return duracion;
     }
 
-    public Calidad getCalidad() { 
-        return calidad; 
+    public void setDuracion(Duracion duracion) {
+        this.duracion = duracion;
     }
 
-    public void setCalidad(Calidad calidad) { 
-        this.calidad = calidad; 
+    public Calidad getCalidad() {
+        return calidad;
     }
 
-    public BigDecimal getPrecio() { 
-        return precio; 
+    public void setCalidad(Calidad calidad) {
+        this.calidad = calidad;
     }
 
-    public void setPrecio(BigDecimal precio) { 
-        this.precio = precio; 
+    public BigDecimal getPrecio() {
+        return precio;
     }
 
-    public String getClienteId() { 
-        return clienteId; 
+    public void setPrecio(BigDecimal precio) {
+        this.precio = precio;
     }
 
-    public void setClienteId(String clienteId) { 
-        this.clienteId = clienteId; 
+    public String getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(String clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

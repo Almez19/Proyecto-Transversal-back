@@ -1,10 +1,12 @@
 package com.BackBasiFit.entity;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,46 +15,119 @@ public class Ejercicios {
 
     @Id
     @Column(length = 36)
-    private String id = UUID.randomUUID().toString();
+    private String id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 80)
     private String nombre;
 
-    @Column(name = "rutina_id_e", nullable = false, length = 36)
+    @Column(nullable = false)
+    private Integer orden = 1;
+
+    @Column(nullable = false)
+    private Integer series = 3;
+
+    @Column(nullable = false)
+    private Integer repeticiones = 10;
+
+    @Column(precision = 6, scale = 2)
+    private BigDecimal peso;
+
+    @Column(name = "descanso_segundos", nullable = false)
+    private Integer descansoSegundos = 60;
+
+    @Column(length = 255)
+    private String notas;
+
+    @Column(name = "rutina_id", nullable = false, length = 36)
     private String rutinaId;
 
-    @Column(name = "maquina_id_e", nullable = false, length = 36)
+    @Column(name = "maquina_id", length = 36)
     private String maquinaId;
 
-    public String getId() { 
-        return id; 
+    @PrePersist
+    public void prePersist() {
+        if (this.id == null || this.id.isBlank()) {
+            this.id = UUID.randomUUID().toString();
+        }
     }
 
-    public void setId(String id) { 
-        this.id = id; 
+    public String getId() {
+        return id;
     }
 
-    public String getNombre() { 
-        return nombre; 
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setNombre(String nombre) { 
-        this.nombre = nombre; 
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getRutinaId() { 
-        return rutinaId; 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setRutinaId(String rutinaId) { 
-        this.rutinaId = rutinaId; 
+    public Integer getOrden() {
+        return orden;
     }
 
-    public String getMaquinaId() { 
-        return maquinaId; 
+    public void setOrden(Integer orden) {
+        this.orden = orden;
     }
 
-    public void setMaquinaId(String maquinaId) { 
-        this.maquinaId = maquinaId; 
+    public Integer getSeries() {
+        return series;
+    }
+
+    public void setSeries(Integer series) {
+        this.series = series;
+    }
+
+    public Integer getRepeticiones() {
+        return repeticiones;
+    }
+
+    public void setRepeticiones(Integer repeticiones) {
+        this.repeticiones = repeticiones;
+    }
+
+    public BigDecimal getPeso() {
+        return peso;
+    }
+
+    public void setPeso(BigDecimal peso) {
+        this.peso = peso;
+    }
+
+    public Integer getDescansoSegundos() {
+        return descansoSegundos;
+    }
+
+    public void setDescansoSegundos(Integer descansoSegundos) {
+        this.descansoSegundos = descansoSegundos;
+    }
+
+    public String getNotas() {
+        return notas;
+    }
+
+    public void setNotas(String notas) {
+        this.notas = notas;
+    }
+
+    public String getRutinaId() {
+        return rutinaId;
+    }
+
+    public void setRutinaId(String rutinaId) {
+        this.rutinaId = rutinaId;
+    }
+
+    public String getMaquinaId() {
+        return maquinaId;
+    }
+
+    public void setMaquinaId(String maquinaId) {
+        this.maquinaId = maquinaId;
     }
 }

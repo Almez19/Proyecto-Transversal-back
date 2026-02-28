@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,42 +29,43 @@ public class NoticiasController {
         this.noticiaService = noticiaService;
     }
 
-    // GET noticia 
+    // GET (público)
     @GetMapping
     public List<Noticias> getAll(@RequestParam(required = false) String gimnasioId) {
-        // GET noticia por id de gimnacio
         if (gimnasioId != null) {
-
             return noticiaService.findByGimnasioId(gimnasioId);
         }
-    
         return noticiaService.findAll();
     }
 
-    //GET ultimas 3 noticias añadidas
+    // GET (público) - últimas 3
     @GetMapping("/ultimas")
     public List<Noticias> ultimasNoticias() {
-         return noticiaService.findTop3ByOrderByFechaDesc();
+        return noticiaService.findTop3ByOrderByFechaDesc();
     }
 
-    // GET por id 
+    // GET (público)
     @GetMapping("/{id}")
     public Noticias getById(@PathVariable String id) {
-
         return noticiaService.findById(id);
     }
 
-    // POST crear noticias
+    // POST crear noticias (ADMIN/EMPLEADO)
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     public ResponseEntity<Noticias> create(@RequestBody Noticias noticia) {
         Noticias noticiaGuardada = noticiaService.save(noticia);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(noticiaGuardada.getId()).toUri();
-        
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(noticiaGuardada.getId())
+                .toUri();
+
         return ResponseEntity.created(location).body(noticiaGuardada);
     }
 
-    // PUT actualizar datos
+    // PUT actualizar (ADMIN/EMPLEADO)
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN','EMPLEADO')")
     public Noticias update(@PathVariable String id, @RequestBody Noticias noticiaActualizada) {
         Noticias noticiaExistente = noticiaService.findById(id);
         noticiaExistente.setTitulo(noticiaActualizada.getTitulo());
@@ -75,11 +77,11 @@ public class NoticiasController {
         return noticiaService.save(noticiaExistente);
     }
 
-    // DELTE eliminar noticias
+    // DELETE (ADMIN)
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         noticiaService.delete(id);
-        
         return ResponseEntity.noContent().build();
     }
 }
