@@ -37,5 +37,4 @@ public class MaquinasService {
 
      public List<Maquinas> findTop5ByOrderByIdDesc() { 
         return maquinasRepository.findTop5ByOrderByIdDesc(); 
-    }
-}
+    }}

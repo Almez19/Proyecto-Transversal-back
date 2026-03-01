@@ -14,7 +14,7 @@ public class ClasesService {
         this.clasesRepository = clasesRepository; 
     }
 
-    public List<Clases> findAll() { 
+    public List<Clases> findAll() {
         return clasesRepository.findAll(); 
     }
 
